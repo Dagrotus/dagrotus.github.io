@@ -19,11 +19,11 @@
 </head>
 <body class="container-lg my-3">    
     <div id="app">
-        <div id="header" class="text-center mb-3 d-sm-block d-none">
+        <div id="header" class="text-center mb-3 d-md-block d-none">
             <img id="header-logo" src="img/Logo_LOR_Title_crispmip.png" width="300">
             <div id="header-title">DECK NAME EDITOR</div>
         </div>
-        <div id="tools" class="mb-3 d-flex flex-wrap justify-content-md-start justify-content-center">
+        <div id="tools" class="mb-3 d-flex flex-wrap justify-content-lg-start justify-content-center">
             <div class="typography-button-wrapper typography-button-bold-wrapper">
                 <button type="button" class="typography-button typography-button-bold tool-button" title="Bold text" @click="clickApplyTypographyStyle('b')"><b>B</b></button>
             </div>
@@ -45,33 +45,34 @@
             <div class="typography-button-wrapper typography-button-marked-wrapper">
                 <button type="button" class="typography-button typography-button-marked tool-button" title="Marked text" @click="clickApplyTypographyStyle('mark')"><mark>M</mark></button>
             </div>
-            <div class="dropdown button-wrapper">
+            <div class="dropdown-button-wrapper">                
                 <button type="button" 
-                        class="dropdown-button tool-button d-none d-sm-block"
-                        @click="toggleDropdown($event, 'dropdown-sprites')"
+                        class="dropdown-button tool-button d-none d-lg-block"
+                        @click="toggleMenu(menuStates.dropdownSprites)"
                         title="Sprite palette">Sprites</button>
-                <div id="dropdown-sprites" class="dropdown-content">
+                <div v-if="showDropdownSprites" id="dropdown-sprites" class="dropdown-content">
                     <sprite-palette :sprites="sprites"
                                     :clickfn="clickSprite">
                     </sprite-palette>
                 </div>
                 <button type="button" 
-                        class="dropdown-button tool-button d-sm-none" 
+                        class="dropdown-button tool-button d-lg-none" 
                         data-toggle="modal" 
-                        data-target="#spritesModal">
+                        @click="toggleMenu(menuStates.modalSprites)">
                     Sprites
                 </button>
             </div>
-            <div class="dropdown button-wrapper">
+            <div class="dropdown-button-wrapper">                
                 <button type="button" 
-                        class="dropdown-button tool-button d-none d-sm-block"
-                        @click="toggleDropdown($event, 'dropdown-colors')"
+                        class="dropdown-button tool-button d-none d-lg-block"
+                        @click="toggleMenu(menuStates.dropdownColors)"
                         title="Color picker">Colors</button>
-                <div id="dropdown-colors" class="dropdown-content">
-                    <div class="dropdown-color-picker">
-                        <sketch-picker :value="colors" 
+                <div v-if="showDropdownColors" id="dropdown-colors" class="dropdown-content">
+                    <div class="menu-color-picker">
+                        <sketch-picker :value="color" 
                                        :preset-colors="swatches" 
-                                       ref="colorPicker">
+                                       ref="colorPicker"
+                                       :preserve-color="preserveColor">
                         </sketch-picker>
                     </div>
                     <div class="d-flex justify-content-center p-1 add-color-button-wrapper">
@@ -86,9 +87,9 @@
                     </div>
                 </div>
                 <button type="button" 
-                        class="dropdown-button tool-button d-sm-none" 
+                        class="dropdown-button tool-button d-lg-none" 
                         data-toggle="modal" 
-                        data-target="#colorPickerModal">
+                        @click="toggleMenu(menuStates.modalColors)">
                     Colors
                 </button>
             </div>
@@ -110,9 +111,13 @@
             </div>
         </div>
     
-        <div class="modal fade" id="spritesModal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content" @click="closeModal($event,'spritesModal')">
+        <div v-if="showModalSprites" class="menu-modal" 
+             tabindex="-1" 
+             role="dialog" 
+             aria-labelledby="" 
+             aria-hidden="true">
+            <div class="menu-modal-centered" role="document">
+                <div class="menu-modal-content">
                     <div class="d-flex justify-content-center">
                         <sprite-palette :sprites="sprites"
                                         :clickfn="clickSprite">
@@ -122,26 +127,31 @@
             </div>
         </div>
 
-        <div class="modal fade" id="colorPickerModal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content" @click="closeModal($event,'colorPickerModal')">
-                    <div class="d-flex justify-content-center">
-                        <div>
-                            <sketch-picker :value="colors" 
-                                       :preset-colors="swatches" 
-                                       ref="colorPicker">
-                            </sketch-picker>
-                            <div class="d-flex justify-content-center p-1 add-color-button-wrapper">
-                                <button type="button" 
-                                        class="add-color-button add-short-hex-button m-1" 
-                                        @click="clickAddColor(true)"
-                                        title="Color represented in short HEX value(#fff)">Add short HEX</button>
-                                <button type="button" 
-                                        class="add-color-button add-hex-button m-1"
-                                        @click="clickAddColor(false)"
-                                        title="Color represented in full HEX value(#fff000)">Add full HEX</button>
-                            </div>
-                        </div>                        
+        <div v-if="showModalColors" class="menu-modal" 
+             tabindex="-1" 
+             role="dialog" 
+             aria-labelledby="" 
+             aria-hidden="true">
+            <div class="menu-modal-centered" role="document">
+                <div class="menu-modal-content">
+                    <div class="">
+                        <div class="menu-color-picker">
+                            <chrome-picker :value="color" 
+                                       ref="colorPicker"
+                                       :preserve-color="preserveColor"
+                                       :disable-fields="true">
+                            </chrome-picker>
+                        </div>
+                        <div class="d-flex justify-content-center p-1 add-color-button-wrapper">
+                            <button type="button" 
+                                    class="add-color-button add-short-hex-button m-1" 
+                                    @click="clickAddColor(true)"
+                                    title="Color represented in short HEX value(#fff)">Add short HEX</button>
+                            <button type="button" 
+                                    class="add-color-button add-hex-button m-1"
+                                    @click="clickAddColor(false)"
+                                    title="Color represented in full HEX value(#fff000)">Add full HEX</button>
+                        </div>                       
                     </div>       
                 </div>
             </div>

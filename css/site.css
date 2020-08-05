@@ -15,7 +15,6 @@ body{
 }
 
 .dropdown-content {
-    display: none;
     position: absolute;
     background-color: #f1f1f1;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
@@ -84,6 +83,14 @@ em {
     width: 305px !important;
     box-shadow: 0 0 0 0 !important;
     background-color: var(--bg-secondary) !important;
+}
+
+.vc-sketch-presets{
+    border-top:0 !important;
+}
+
+.vc-chrome{
+    width: 100% !important;
 }
 
 .preview-presentation{
@@ -213,4 +220,20 @@ em {
 
 .modal-content{
     background-color: var(--bg-secondary);
+}
+
+.menu-modal{
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    top:0;
+    left:0;
+}
+
+.menu-modal-centered{
+    position: fixed;
+    top: calc(20vh - 1rem);
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 }

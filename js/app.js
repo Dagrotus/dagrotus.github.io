@@ -25,6 +25,15 @@ Vue.component('spritePalette', {
     }
 });
 
+var colorPickerComponent = VueColor.Sketch;
+colorPickerComponent.props['preserveColor'] = {}; 
+colorPickerComponent.destroyed = function(){ this.preserveColor(); };
+
+var chromePickerComponent = VueColor.Chrome;
+chromePickerComponent.props['preserveColor'] = {}; 
+chromePickerComponent.destroyed = function(){ this.preserveColor(); };
+
+
 var app = new Vue({
     el: '#app',
     data:{
@@ -33,43 +42,22 @@ var app = new Vue({
         preview: '',
         previewFull: '',
         styleTags: ['b', 'i', 's', 'u', 'sub', 'sup', 'mark'],
-        colors: '#FF0000',
+        color: '#FF0000',
         swatches: ['#F00','#F90','#FF0','#0F0','#00F','#F0F','#FFF','#000','#9EF','#A20','#FFE','#FBF','#2B9','#FD7','#840'],
+        menuStates: {
+            'none': 0, 
+            'dropdownSprites': 1, 
+            'modalSprites': 2, 
+            'dropdownColors': 3, 
+            'modalColors': 4
+        },
+        menuState: 0,
     },
     components:{
-        'sketch-picker': VueColor.Sketch,
+        'sketch-picker': colorPickerComponent,
+        'chrome-picker': chromePickerComponent,
     },
     methods:{
-        closeDropdowns: function(){
-            if (!event.target.matches('.dropdown-button') && event.target.closest('.dropdown-color-picker') === null) {
-                var dropdowns = document.getElementsByClassName("dropdown-content");
-                for (dropdown of dropdowns) {
-                    if (dropdown.classList.contains('dropdown-show')) {
-                        dropdown.classList.remove('dropdown-show');
-                        dropdown.parentElement.querySelector('.dropdown-show-active').classList.remove('dropdown-show-active');
-                    }
-                }
-            }
-        },
-        toggleDropdown: function(e, dropdownId){            
-            var dropdowns = document.getElementsByClassName("dropdown-content");
-            for (dropdown of dropdowns) {
-                if (dropdown.id !== dropdownId && dropdown.classList.contains('dropdown-show')) {
-                    dropdown.classList.remove('dropdown-show');
-                    dropdown.parentElement.querySelector('.dropdown-show-active').classList.remove('dropdown-show-active');
-                }
-            }
-            document.getElementById(dropdownId).classList.toggle("dropdown-show");
-            e.target.classList.toggle('dropdown-show-active');
-        },
-        closeModal: function(e, modalId){
-            var button = document.querySelector(`button[data-target="#${modalId}"]`);
-            if(button && (e.target.classList.contains('add-color-button') || 
-                            e.target.classList.contains('sprite-button') || 
-                            e.target.parentElement.classList.contains('sprite-button'))){
-                button.click();
-            }
-        },
         clickSprite: function(sprite){
             var inputElement = document.getElementById('input-text-area');
             var caretIndex = inputElement.selectionStart;
@@ -121,15 +109,18 @@ var app = new Vue({
             var resultColor = '';
             if(short){
                 resultColor = `#${Math.round(color.rgba.r / 17).toString(16)}${Math.round(color.rgba.g / 17).toString(16)}${Math.round(color.rgba.b / 17).toString(16)}`;
+                if(color.a !== 1){
+                    resultColor += Math.round(hexA / 17).toString(16);
+                }
             }
             else{
-                resultColor = color.hex;
-            }
-            
-            if(color.a !== 1){
-                resultColor += hexA;
+                resultColor = color.hex;            
+                if(color.a !== 1){
+                    resultColor += hexA;
+                }
             }
 
+            this.color = resultColor;
             var tagText = `<${resultColor}>`;
 
             var inputElement = document.getElementById('input-text-area');
@@ -226,7 +217,6 @@ var app = new Vue({
             return text; 
         },
         spriteImageTagTemplate: function(imageRef){
-            //return `<div class="mx-1"><img src="${imageRef}" width="50" height="50"></div>`;
             return `<img src="${imageRef}" width="50" height="50" class="mx-1">`;
         },     
         parseInput: function(input){
@@ -300,16 +290,30 @@ var app = new Vue({
             }
 
             return `<span>${resultHtml}</span>`;
+        },
+        toggleMenu(menuState){
+            this.menuState === menuState ? this.menuState = this.menuStates.none : this.menuState = menuState;
+        },
+        preserveColor: function(){         
+            var color = this.$refs.colorPicker;
+            if(color !== undefined){
+                this.color = color.val.hex8;
+            }
         }
     },
-    created: function(){
-        window.addEventListener('click', this.closeDropdowns);
-    },
-    destroyed: function(){
-        window.removeEventListener('click', this.closeDropdowns);
-    },
     computed:{
-
+        showDropdownSprites: function(){
+            return this.menuState === this.menuStates.dropdownSprites;
+        },
+        showModalSprites: function(){
+            return this.menuState === this.menuStates.modalSprites;
+        },
+        showDropdownColors: function(){
+            return this.menuState === this.menuStates.dropdownColors;
+        },
+        showModalColors: function(){
+            return this.menuState === this.menuStates.modalColors;
+        },
     },
     watch:{
         input: function(){
@@ -318,8 +322,14 @@ var app = new Vue({
         }
     },
     mounted: function(){
+        var app = this;
         document.onkeyup = function(e){
 
+        };
+        document.onclick = function(e){
+            if(!e.target.matches('.dropdown-button') && e.target.closest('.menu-color-picker') === null && !e.target.matches('.add-color-button-wrapper')){
+                app.menuState = app.menuStates.none;
+            }
         }
     }
 });
