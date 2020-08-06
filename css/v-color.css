@@ -23,7 +23,7 @@
 }
 
 .vc-chrome{
-    width: auto !important;
+    width: 100% !important;
     background-color: #211E1E !important;
     border-radius: 0 !important;
     border-left: 1px solid var(--font-color);    

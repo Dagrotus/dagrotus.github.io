@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="An online tool for creating and formatting deck names for Legends of Runeterra, including text coloring and sprite images.">
     <meta name="google-site-verification" content="FYUsHzPtOlUgL5sFcigdZlCBy6ev-CBzCPFvmC0WQ4o" />
     <title>LoR Deck Name Editor</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon"> 
@@ -123,15 +124,13 @@
              role="dialog" 
              aria-labelledby="" 
              aria-hidden="true">
-            <div class="menu-modal-centered" role="document">
+            <div class="d-flex justify-content-center">
                 <div class="menu-modal-content">
-                    <div class="d-flex justify-content-center">
-                        <sprite-palette :sprites="sprites"
-                                        :clickfn="clickSprite">
-                        </sprite-palette>
-                    </div>       
+                    <sprite-palette :sprites="sprites"
+                                    :clickfn="clickSprite">
+                    </sprite-palette>
                 </div>
-            </div>
+            </div>    
         </div>
 
         <div v-if="showModalColors" class="menu-modal" 
@@ -139,30 +138,30 @@
              role="dialog" 
              aria-labelledby="" 
              aria-hidden="true">
-            <div class="menu-modal-centered" role="document">
+            <div class="d-flex justify-content-center">
                 <div class="menu-modal-content">
-                    <div class="">
-                        <div class="menu-color-picker">
-                            <chrome-picker :value="color" 
-                                       ref="colorPicker"
-                                       :preserve-color="preserveColor"
-                                       :disable-fields="true">
-                            </chrome-picker>
-                        </div>
-                        <div class="d-flex justify-content-center p-1 add-color-button-wrapper">
-                            <button type="button" 
-                                    class="add-color-button add-short-hex-button m-1" 
-                                    @click="clickAddColor(true)"
-                                    title="Color represented in short HEX value(#fff)">Add short HEX</button>
-                            <button type="button" 
-                                    class="add-color-button add-hex-button m-1"
-                                    @click="clickAddColor(false)"
-                                    title="Color represented in full HEX value(#fff000)">Add full HEX</button>
-                        </div>                       
-                    </div>       
-                </div>
+                    <div class="menu-color-picker">
+                        <chrome-picker :value="color" 
+                                    ref="colorPicker"
+                                    :preserve-color="preserveColor"
+                                    :disable-fields="true">
+                        </chrome-picker>
+                    </div>
+                    <div class="d-flex justify-content-center p-1 add-color-button-wrapper">
+                        <button type="button" 
+                                class="add-color-button add-short-hex-button m-1" 
+                                @click="clickAddColor(true)"
+                                title="Color represented in short HEX value(#fff)">Add short HEX</button>
+                        <button type="button" 
+                                class="add-color-button add-hex-button m-1"
+                                @click="clickAddColor(false)"
+                                title="Color represented in full HEX value(#fff000)">Add full HEX</button>
+                    </div> 
+                </div>  
             </div>
         </div>
+
+        <div v-if="showModalColors || showModalSprites" class="menu-modal-dark"></div>
     </div>
 
     <template id="sprite-palette-template">
