@@ -27,79 +27,85 @@
             <img id="header-logo" src="img/assets/Logo_LOR_Title_crispmip.png" width="300" class="mt-3">
             <div id="header-title">DECK NAME EDITOR</div>
         </div>
-        <div id="tools" class="mb-3 d-flex flex-wrap justify-content-lg-start justify-content-center">
-            <div class="typography-button-wrapper typography-button-bold-wrapper">
-                <button type="button" class="typography-button typography-button-bold tool-button" title="Bold text" @click="clickApplyTypographyStyle('b')"><b>B</b></button>
-            </div>
-            <div class="typography-button-wrapper typography-button-italic-wrapper">
-                <button type="button" class="typography-button typography-button-italic tool-button" title="Italic text" @click="clickApplyTypographyStyle('i')"><i>I</i></button>
-            </div>
-            <div class="typography-button-wrapper typography-button-underline-wrapper">
-                <button type="button" class="typography-button typography-button-underline tool-button" title="Underlined text" @click="clickApplyTypographyStyle('u')"><u>U</u></button>
-            </div>
-            <div class="typography-button-wrapper typography-button-strike-wrapper">
-                <button type="button" class="typography-button typography-button-strike tool-button" title="Text with line through" @click="clickApplyTypographyStyle('s')"><s>S</s></button>
-            </div>
-            <div class="typography-button-wrapper typography-button-sub-wrapper">
-                <button type="button" class="typography-button typography-button-sub tool-button" title="Subscript text" @click="clickApplyTypographyStyle('sub')">X<sub>2</sub></button>
-            </div>
-            <div class="typography-button-wrapper typography-button-sup-wrapper">
-                <button type="button" class="typography-button typography-button-sup tool-button" title="Superscript text" @click="clickApplyTypographyStyle('sup')">X<sup>2</sup></button>
-            </div>
-            <div class="typography-button-wrapper typography-button-marked-wrapper">
-                <button type="button" class="typography-button typography-button-marked tool-button" title="Marked text" @click="clickApplyTypographyStyle('mark')"><mark>M</mark></button>
-            </div>
-            <div class="dropdown-button-wrapper">                
-                <button type="button" 
-                        class="dropdown-button tool-button d-none d-lg-block"
-                        @click="toggleMenu(menuStates.dropdownSprites)"
-                        title="Sprite palette">Sprites</button>
-                <div v-if="showDropdownSprites" id="dropdown-sprites" class="dropdown-content">
-                    <sprite-palette :sprites="sprites"
-                                    :clickfn="clickSprite">
-                    </sprite-palette>
+        <div id="tools" class="mb-3 d-flex flex-wrap justify-content-lg-between justify-content-center">
+            <div class="d-flex flex-wrap justify-content-lg-start justify-content-center">
+                <div class="typography-button-wrapper typography-button-bold-wrapper">
+                    <button type="button" class="square-button typography-button-bold tool-button" title="Bold text" @click="clickApplyTypographyStyle('b')"><b>B</b></button>
                 </div>
-                <button type="button" 
-                        class="dropdown-button tool-button d-lg-none" 
-                        data-toggle="modal" 
-                        @click="toggleMenu(menuStates.modalSprites)">
-                    Sprites
-                </button>
-            </div>
-            <div class="dropdown-button-wrapper">                
-                <button type="button" 
-                        class="dropdown-button tool-button d-none d-lg-block"
-                        @click="toggleMenu(menuStates.dropdownColors)"
-                        title="Color picker">Colors</button>
-                <div v-if="showDropdownColors" id="dropdown-colors" class="dropdown-content">
-                    <div class="menu-color-picker">
-                        <sketch-picker :value="color" 
-                                       :preset-colors="swatches" 
-                                       ref="colorPicker"
-                                       :preserve-color="preserveColor">
-                        </sketch-picker>
-                    </div>
-                    <div class="d-flex justify-content-center p-1 add-color-button-wrapper">
-                        <button type="button" 
-                                class="add-color-button add-short-hex-button m-1" 
-                                @click="clickAddColor(true)"
-                                title="Color represented in short HEX value(#fff)">Add short HEX</button>
-                        <button type="button" 
-                                class="add-color-button add-hex-button m-1"
-                                @click="clickAddColor(false)"
-                                title="Color represented in full HEX value(#fff000)">Add full HEX</button>
-                    </div>
+                <div class="typography-button-wrapper typography-button-italic-wrapper">
+                    <button type="button" class="square-button typography-button-italic tool-button" title="Italic text" @click="clickApplyTypographyStyle('i')"><i>I</i></button>
                 </div>
-                <button type="button" 
-                        class="dropdown-button tool-button d-lg-none" 
-                        data-toggle="modal" 
-                        @click="toggleMenu(menuStates.modalColors)">
-                    Colors
-                </button>
+                <div class="typography-button-wrapper typography-button-underline-wrapper">
+                    <button type="button" class="square-button typography-button-underline tool-button" title="Underlined text" @click="clickApplyTypographyStyle('u')"><u>U</u></button>
+                </div>
+                <div class="typography-button-wrapper typography-button-strike-wrapper">
+                    <button type="button" class="square-button typography-button-strike tool-button" title="Text with line through" @click="clickApplyTypographyStyle('s')"><s>S</s></button>
+                </div>
+                <div class="typography-button-wrapper typography-button-sub-wrapper">
+                    <button type="button" class="square-button typography-button-sub tool-button" title="Subscript text" @click="clickApplyTypographyStyle('sub')">X<sub>2</sub></button>
+                </div>
+                <div class="typography-button-wrapper typography-button-sup-wrapper">
+                    <button type="button" class="square-button typography-button-sup tool-button" title="Superscript text" @click="clickApplyTypographyStyle('sup')">X<sup>2</sup></button>
+                </div>
+                <div class="typography-button-wrapper typography-button-marked-wrapper">
+                    <button type="button" class="square-button typography-button-marked tool-button" title="Marked text" @click="clickApplyTypographyStyle('mark')"><mark>M</mark></button>
+                </div>
+                <div class="dropdown-button-wrapper">                
+                    <button type="button" 
+                            class="rect-button dropdown-button tool-button d-none d-lg-block"
+                            @click="toggleMenu(menuStates.dropdownSprites)"
+                            title="Sprite palette">Sprites</button>
+                    <div v-if="showDropdownSprites" id="dropdown-sprites" class="dropdown-content">
+                        <sprite-palette :sprites="sprites"
+                                        :clickfn="clickSprite">
+                        </sprite-palette>
+                    </div>
+                    <button type="button" 
+                            class="rect-button modal-button tool-button d-lg-none" 
+                            data-toggle="modal" 
+                            @click="toggleMenu(menuStates.modalSprites)">
+                        Sprites
+                    </button>
+                </div>
+                <div class="dropdown-button-wrapper">                
+                    <button type="button" 
+                            class="rect-button dropdown-button tool-button d-none d-lg-block"
+                            @click="toggleMenu(menuStates.dropdownColors)"
+                            title="Color picker">Colors</button>
+                    <div v-if="showDropdownColors" id="dropdown-colors" class="dropdown-content">
+                        <div class="menu-color-picker">
+                            <sketch-picker :value="color" 
+                                           :preset-colors="swatches" 
+                                           ref="colorPicker"
+                                           :preserve-color="preserveColor">
+                            </sketch-picker>
+                        </div>
+                        <div class="d-flex justify-content-center p-1 add-color-button-wrapper">
+                            <button type="button" 
+                                    class="large-rect-button add-short-hex-button m-1" 
+                                    @click="clickAddColor(true)"
+                                    title="Color represented in short HEX value(#fff)">Add short HEX</button>
+                            <button type="button" 
+                                    class="large-rect-button add-hex-button m-1"
+                                    @click="clickAddColor(false)"
+                                    title="Color represented in full HEX value(#fff000)">Add full HEX</button>
+                        </div>
+                    </div>
+                    <button type="button" 
+                            class="rect-button modal-button tool-button d-lg-none" 
+                            data-toggle="modal" 
+                            @click="toggleMenu(menuStates.modalColors)">
+                        Colors
+                    </button>
+                </div>
+            </div>
+            
+            <div class="help-button-wrapper">
+                <button type="button" class="square-button help-button tool-button" title="Help" @click="toggleMenu(menuStates.modalHelp)">?</button>
             </div>
         </div>     
         <div id="input">
-            <textarea id="input-text-area" rows="2" class="form-control" v-model="input" spellcheck="false"></textarea>
+            <textarea id="input-text-area" rows="2" class="form-control" v-model="input" spellcheck="false" placeholder="Type deck name here..."></textarea>
             <div id="input-text-area-counter">
                 {{input.length}}
             </div>
@@ -149,19 +155,85 @@
                     </div>
                     <div class="d-flex justify-content-center p-1 add-color-button-wrapper">
                         <button type="button" 
-                                class="add-color-button add-short-hex-button m-1" 
+                                class="large-rect-button add-short-hex-button m-1" 
                                 @click="clickAddColor(true)"
                                 title="Color represented in short HEX value(#fff)">Add short HEX</button>
                         <button type="button" 
-                                class="add-color-button add-hex-button m-1"
+                                class="large-rect-button add-hex-button m-1"
                                 @click="clickAddColor(false)"
                                 title="Color represented in full HEX value(#fff000)">Add full HEX</button>
                     </div> 
                 </div>  
             </div>
         </div>
+        
+        <div v-if="showModalHelp" class="menu-modal" 
+             tabindex="-1" 
+             role="dialog" 
+             aria-labelledby="" 
+             aria-hidden="true">
+            <div class="d-flex justify-content-center">
+                <div class="menu-modal-content">
+                    <div class="help">
+                        <div class="help-corner help-corner-top-left"></div>
+                        <div class="help-corner help-corner-top-right"></div>
+                        <div class="help-corner help-corner-bottom-left"></div>
+                        <div class="help-corner help-corner-bottom-right"></div>
+                        <p class="help-title">Overview</p>
+                        <p class="help-paragraph">Lor Deck Name Editor provides various tools that help customizing deck names in Legends of Runeterra, including: text formatting options, text coloring and sprite insertion.</p>
+                        <p class="help-title">Text formatting</p>
+                        <p class="help-paragraph">
+                            Text formatting is assigned using following tags:                            
+                        </p>
+                        <ul>
+                            <li>&lt;b&gt; - text formatted <b>Bold</b>;</li>
+                            <li>&lt;i&gt; - text formatted <i>Italic</i>;</li>
+                            <li>&lt;u&gt; - text formatted <u>Underlined</u>;</li>
+                            <li>&lt;s&gt; - text formatted with <s>line through it</s>;</li>
+                            <li>&lt;sub&gt; - text formatted as <sub>sub</sub>script</li>
+                            <li>&lt;sup&gt; - text formatted as <sup>super</sup>script</li>
+                            <li>&lt;mark&gt; - text formatted <mark>Marked</mark>;</li>
+                        </ul>
+                        <p class="help-paragraph">
+                            Tags can be written manually or by using buttons to apply formatting automatically. 
+                            Closing tag (&lt;/&gt;) is not required, but can be used to apply formatting between tags ("&lt;b&gt;Bold text here" is the same as "&lt;b&gt;Bold text here&lt;/b&gt;" but not the same as "&lt;b&gt;Bold text here&lt;/b&gt; not bold text here").
+                            Selecting text and pressing format button will apply format to selection. If text is not selected, tag will be inserted at cursor position.
+                        </p>                        
+                        <p class="help-paragraph">
+                            Note: in game underline and line-through format will be applied to sprites, but preview here does not display it.
+                        </p>
+                        <p class="help-title">Text coloring</p>
+                        <p class="help-paragraph">
+                            Text coloring can be assigned by following tags:                            
+                        </p>
+                        <ul>
+                            <li>Short hexcode tag (&lt;#0F0&gt; or with opacity &lt;#0F0A&gt;);</li>
+                            <li>Full hexcode tag (&lt;#00FF00&gt; or with opacity &lt;#00FF00AA&gt;);</li>
+                            <li>Color tag with specified hexcode, short or full (&lt;color=#0F0&gt; or &lt;color=#00FF00&gt;);</li>
+                            <li>Color tag with color name (&lt;color=green&gt;), following color names can be used: red, orange, yellow, green, blue, purple, black, white;</li>
+                        </ul>
+                        <p class="help-paragraph">
+                            Like text format, tags can be written manually or by using color picker tool to apply color automatically. 
+                            Closing tag (&lt;/color&gt;) is not required, but can be used to apply coloring between tags. 
+                            In game color will be applied to sprites, but preview here might display it incorrectly in Firefox and some other browsers.
+                        </p>
+                        <p class="help-title">Sprites</p>
+                        <p class="help-paragraph">
+                            Sprites can be inserted with following tags:
+                        </p>
+                        <ul>
+                            <li>Numbered sprite tag (&lt;sprite=1&gt;). Number can be between 1 and 24;</li>
+                            <li>Named sprite tag (&lt;#sprite name=Noxus&gt;);</li>
+                        </ul>
+                        <p class="help-paragraph">
+                            Sprites can be inserted with sprite palette, it will always choose the shortest sprite tag, if possible.
+                        </p>
+                    </div>
+                </div>  
+            </div>
+        </div>
 
-        <div v-if="showModalColors || showModalSprites" class="menu-modal-dark"></div>
+        <div v-if="showModalColors || showModalSprites || showModalHelp" class="menu-modal-dark"></div>
     </div>
 
     <template id="sprite-palette-template">

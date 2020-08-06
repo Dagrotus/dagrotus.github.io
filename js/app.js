@@ -43,13 +43,14 @@ var app = new Vue({
         previewFull: '',
         styleTags: ['b', 'i', 's', 'u', 'sub', 'sup', 'mark'],
         color: '#FF0000',
-        swatches: ['#F00','#F90','#FF0','#0F0','#00F','#F0F','#FFF','#000','#9EF','#A20','#FFE','#FBF','#2B9','#FD7','#840'],
+        swatches: ['#F00','#F90','#FF0','#0F0','#00F','#800080','#FFF','#000','#9EF','#A20','#FFE','#FBF','#2B9','#FD7','#840'],
         menuStates: {
             'none': 0, 
             'dropdownSprites': 1, 
             'modalSprites': 2, 
             'dropdownColors': 3, 
-            'modalColors': 4
+            'modalColors': 4,
+            'modalHelp': 5,
         },
         menuState: 0,
     },
@@ -110,7 +111,7 @@ var app = new Vue({
             if(short){
                 resultColor = `#${Math.round(color.rgba.r / 17).toString(16)}${Math.round(color.rgba.g / 17).toString(16)}${Math.round(color.rgba.b / 17).toString(16)}`;
                 if(color.a !== 1){
-                    resultColor += Math.round('0x' + hexA / 17).toString(16);
+                    resultColor += Math.round(('0x' + hexA) / 17).toString(16);
                 }
             }
             else{
@@ -216,8 +217,15 @@ var app = new Vue({
             }
             return text; 
         },
-        spriteImageTagTemplate: function(imageRef){
-            return `<img src="${imageRef}" width="50" height="50" class="mx-1">`;
+        spriteImageTagTemplate: function(imageRef, styles){
+            var style = ''
+            if(styles){
+                var colorStyle = styles.slice().reverse().find(s => s.type === 'color');
+                if(colorStyle !== undefined){
+                    style = `style="-webkit-filter: opacity(.5) drop-shadow(0 0 0 ${colorStyle.color});filter: opacity(.5) drop-shadow(0 0 0 ${colorStyle.color})"`;
+                }
+            }
+            return `<img src="${imageRef}" ${style} width="50" height="50" class="mx-1">`;
         },     
         parseInput: function(input){
             var resultHtml = '';
@@ -248,7 +256,7 @@ var app = new Vue({
                             resultHtml += this.plainTextTagTemplate(tagObj.html,styles);
                         }
                         else if (tagObj.type === 'sprite'){
-                            resultHtml += this.spriteImageTagTemplate(tagObj.html);
+                            resultHtml += this.spriteImageTagTemplate(tagObj.html, styles);
                         }
                         else if(tagObj.type === 'color'){
                             styles.push(tagObj);
@@ -314,6 +322,9 @@ var app = new Vue({
         showModalColors: function(){
             return this.menuState === this.menuStates.modalColors;
         },
+        showModalHelp: function(){
+            return this.menuState === this.menuStates.modalHelp;
+        },
     },
     watch:{
         input: function(){
@@ -327,7 +338,11 @@ var app = new Vue({
 
         };
         document.onclick = function(e){
-            if(!e.target.matches('.dropdown-button') && e.target.closest('.menu-color-picker') === null && !e.target.matches('.add-color-button-wrapper')){
+            if(!e.target.matches('.dropdown-button') && 
+                e.target.closest('.menu-color-picker') === null && 
+                !e.target.matches('.add-color-button-wrapper') &&
+                !e.target.matches('.modal-button') &&
+                !e.target.matches('.help-button')){
                 app.menuState = app.menuStates.none;
             }
         }

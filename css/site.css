@@ -93,7 +93,7 @@ em {
     margin: .25rem;
 }
 
-.typography-button{
+.square-button{
     border: 3px solid var(--btn-frame);
     border-radius: 4px;
     color: var(--font-color);
@@ -108,21 +108,21 @@ em {
     background-size: 49px 44px;
 }
 
-.typography-button:hover{
+.square-button:hover{
     background: url(../img/assets/BTN_Tertiary_Face_Highlight.png) no-repeat;
     background-color: var(--btn-frame);
     color: var(--bg-secondary);
     background-size: 49px 44px;
 }
 
-.typography-button:active{
+.square-button:active{
     background: url(../img/assets/BTN_Tertiary_Face_Selected.png) no-repeat;
     background-color: var(--btn-frame);
     color: var(--btn-active);
     background-size: 49px 44px;
 }
 
-.dropdown-button{
+.rect-button{
     border: 3px solid var(--btn-frame);
     border-radius: 4px;
     color: var(--font-color);
@@ -137,14 +137,14 @@ em {
     background-size: 59px 44px;
 }
 
-.dropdown-button:hover{
+.rect-button:hover{
     background: url(../img/assets/BTN_Tertiary_Face_Highlight.png) no-repeat;
     background-color: var(--btn-frame);
     color: var(--bg-secondary);
     background-size: 59px 44px;
 }
 
-.dropdown-button:active{
+.rect-button:active{
     background: url(../img/assets/BTN_Tertiary_Face_Selected.png) no-repeat;
     background-color: var(--btn-frame);
     color: var(--btn-active);
@@ -172,7 +172,7 @@ em {
     border-bottom: 1px solid var(--font-color);
 }
 
-.add-color-button{
+.large-rect-button{
     background-color: transparent;
     border: 1px solid transparent;
     color: var(--font-color);
@@ -186,13 +186,13 @@ em {
     transition: background-image .15s ease-in-out, color .15s ease-in-out;
 }
 
-.add-color-button:hover{
+.large-rect-button:hover{
     background: url(../img/assets/BTN_Tertiary_Face_Highlight.png) no-repeat;
     background-size: 123px 28px;
     color: var(--bg-secondary);
 }
 
-.add-color-button:active{
+.large-rect-button:active{
     background: url(../img/assets/BTN_Tertiary_Face_Selected.png) no-repeat;
     background-size: 123px 28px;
     color: var(--btn-active);
@@ -224,6 +224,7 @@ em {
 .menu-modal-content{  
     position: absolute;
     top: 5rem;
+    padding-bottom: 5rem;
 }
 
 .menu-modal-dark{
@@ -259,13 +260,97 @@ em {
     overflow: auto;
 }
 
+.preview-presentation > span > img::before {
+    background-color: green;
+}
+
 .preview-presentation-wrapper{
     background-color: var(--btn-frame);
     border: 1px solid var(--font-color);
     border-radius: 4px;
     background: url(../img/assets/BG_Menu_noborder.png) no-repeat center center;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
+    -webkit-background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    -o-background-size: 100% 100%;
     background-size: 100% 100%;
+}
+
+.help{
+    width: 90vw;
+    background: url(../img/assets/BG_Menu_noborder.png) no-repeat center center;
+    -webkit-background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    -o-background-size: 100% 100%;
+    background-size: 100% 100%;
+    font-size: 20px;
+    font-family: 'Lor', Tahoma, Geneva, Verdana, sans-serif;
+    color: #D7CEC7; 
+    border: 1px solid var(--font-color);
+    border-radius: 4px;
+    position: relative;
+    padding: 1.2rem;
+}
+
+.help-corner{
+    position: absolute;
+    background: url(../img/assets/nav_topcorner.png);
+    background-size: 30px 48px;
+    width:30px;
+    height:48px;
+    margin:-1px;
+    border-radius: 4px;
+}
+
+.help-corner-top-left{
+    top:0;
+    left:0;
+}
+
+.help-corner-top-right{
+    top:0;
+    right:0;
+    transform: rotateY(180deg);
+}
+
+.help-corner-bottom-left{
+    bottom:0;
+    left:0;
+    transform: rotateX(180deg);
+}
+
+.help-corner-bottom-right{
+    bottom:0;
+    right:0;
+    transform: rotateX(180deg) rotateY(180deg);
+}
+
+.help-title{
+    font-weight: bold;
+    font-size: 22px;
+    text-align: center;
+}
+
+.help-paragraph{
+    text-indent: 4rem;
+}
+.help ul{
+    padding-left: 6rem;
+}
+
+@media (min-width: 992px){
+    .help{
+        width: 70vw;
+        font-size: 28px;
+        padding: 2rem;
+    }
+
+    .help-corner{
+        background-size: 50px 80px;
+        width:50px;
+        height:80px;
+    }
+
+    .help-title{
+        font-size: 30px;
+    }
 }
