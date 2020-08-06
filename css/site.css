@@ -3,26 +3,7 @@
     --bg-primary: #999999;
     --bg-secondary: #ddd;
     --btn-active: grey;
-}
-
-body{
-    background-color: var(--bg-primary);
-}
-
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.dropdown-content {
-    position: absolute;
-    background-color: #f1f1f1;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-}
-
-.dropdown-show {
-    display:block;
+    --btn-frame: #211E1E;
 }
 
 @font-face {
@@ -35,23 +16,53 @@ body{
     src: url('UniversforRiotGames-UltCond.otf');
 }
 
-.preview-presentation{
-    min-height: 92px;
-    color: #D7CEC7;
-    font-size: 50px;
+body{
+    background-color: transparent;
+}
+
+html{
+    background: url(../img/assets/Background.png) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+#header{
+    background: url(../img/assets/Logo_Background_crispmip.png) no-repeat center top;
+    -webkit-background-size: 450px 205px;
+    -moz-background-size: 450px 205px;
+    -o-background-size: 450px 205px;
+    background-size: 450px 205px;
+}
+
+#header-title{
+    font-size: 30px;
+    color: var(--font-color);
+    text-shadow: 0 0 2px black;
     font-family: 'Lor', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.preview-presentation-wrapper{
-    background-color: #292021;
-    border-radius: 4px;
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    position: absolute;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-show {
+    display: block;
 }
 
 #input-text-area{
     font-size: 25px;
     font-family: 'Lor', Tahoma, Geneva, Verdana, sans-serif;  
     background-color: var(--bg-secondary);
-    height: 147px;
+    height: 149px;
 }
 
 #input {
@@ -78,102 +89,90 @@ em {
     font-style: normal;
 }
 
-.vc-sketch{
-    border-radius: 0 !important; 
-    width: 305px !important;
-    box-shadow: 0 0 0 0 !important;
-    background-color: var(--bg-secondary) !important;
-}
-
-.vc-sketch-presets{
-    border-top:0 !important;
-}
-
-.vc-chrome{
-    width: 100% !important;
-}
-
-.preview-presentation{
-    white-space: pre;
-    overflow-inline: auto;
-    overflow: auto;
-}
-
 .tool-button{
     margin: .25rem;
 }
 
 .typography-button{
-    height: 50px;
-    background-color: transparent;
-    border: 1px solid transparent;
+    border: 3px solid var(--btn-frame);
+    border-radius: 4px;
     color: var(--font-color);
     text-shadow: 0 0 2px black;
     font-size: 27px;
     font-family: 'Times New Roman', Times, serif; 
     background: url(../img/assets/BTN_Tertiary_Face.png) no-repeat;
+    background-color: var(--btn-frame);
     transition: background-image .15s ease-in-out, color .15s ease-in-out;
+    height: 50px;
     width: 55px;
-    background-size: 53px 48px;
+    background-size: 49px 44px;
 }
 
 .typography-button:hover{
     background: url(../img/assets/BTN_Tertiary_Face_Highlight.png) no-repeat;
+    background-color: var(--btn-frame);
     color: var(--bg-secondary);
-    background-size: 53px 48px;
+    background-size: 49px 44px;
 }
 
 .typography-button:active{
     background: url(../img/assets/BTN_Tertiary_Face_Selected.png) no-repeat;
+    background-color: var(--btn-frame);
     color: var(--btn-active);
-    background-size: 53px 48px;
+    background-size: 49px 44px;
 }
 
 .dropdown-button{
-    height: 50px;
-    background-color: transparent;
-    border: 1px solid transparent;
+    border: 3px solid var(--btn-frame);
+    border-radius: 4px;
     color: var(--font-color);
     text-shadow: 0 0 2px black;
     font-size: 24px;
     font-family: 'Lor', Tahoma, Geneva, Verdana, sans-serif; 
     background: url(../img/assets/BTN_Tertiary_Face.png) no-repeat;
+    background-color: var(--btn-frame);
     transition: background-image .15s ease-in-out, color .15s ease-in-out;
+    height: 50px;
     width: 65px;
-    background-size: 63px 48px;
+    background-size: 59px 44px;
 }
 
 .dropdown-button:hover{
     background: url(../img/assets/BTN_Tertiary_Face_Highlight.png) no-repeat;
+    background-color: var(--btn-frame);
     color: var(--bg-secondary);
-    background-size: 63px 48px;
+    background-size: 59px 44px;
 }
 
 .dropdown-button:active{
     background: url(../img/assets/BTN_Tertiary_Face_Selected.png) no-repeat;
+    background-color: var(--btn-frame);
     color: var(--btn-active);
-    background-size: 63px 48px;
+    background-size: 59px 44px;
 }
 
 .dropdown-show-active{
     background: url(../img/assets/BTN_Tertiary_Face_Selected.png) no-repeat;
+    background-color: var(--btn-frame);
     color: var(--btn-active);
-    background-size: 63px 48px;
+    background-size: 59px 44px;
 }
 
 .dropdown-show-active:hover{
     background: url(../img/assets/BTN_Tertiary_Face_Selected.png) no-repeat;
+    background-color: var(--btn-frame);
     color: var(--btn-active);
-    background-size: 63px 48px;
+    background-size: 59px 44px;
 }
 
 .add-color-button-wrapper{
-    background-color: var(--bg-secondary);
+    background-color: var(--btn-frame);
+    border-left: 1px solid var(--font-color);
+    border-right: 1px solid var(--font-color);
+    border-bottom: 1px solid var(--font-color);
 }
 
 .add-color-button{
-    width: 125px;
-    height: 30px;
     background-color: transparent;
     border: 1px solid transparent;
     color: var(--font-color);
@@ -181,6 +180,8 @@ em {
     font-size: 20px;
     font-family: 'Lor', Tahoma, Geneva, Verdana, sans-serif; 
     background: url(../img/assets/BTN_Tertiary_Face.png) no-repeat;
+    width: 125px;
+    height: 30px;
     background-size: 123px 28px;
     transition: background-image .15s ease-in-out, color .15s ease-in-out;
 }
@@ -197,25 +198,17 @@ em {
     color: var(--btn-active);
 }
 
-.preview-header{
-    color: var(--font-color);
-    text-shadow: 0 0 2px black;
-    font-size: 20px;
-    font-family: 'Lor', Tahoma, Geneva, Verdana, sans-serif;
-    border-bottom: 1px solid var(--font-color);
-}
-
-#header-title{
-    font-size: 30px;
-    color: var(--font-color);
-    text-shadow: 0 0 2px black;
-    font-family: 'Lor', Tahoma, Geneva, Verdana, sans-serif;
-    text-decoration: underline;
+.sprite-palette{
+    background-color: transparent;
 }
 
 .sprite-button{
-    background-color: transparent;
-    border: 1px solid var(--bg-secondary);
+    background: url(../img/assets/BG_Menu_noborder.png) no-repeat center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    border: 1px solid var(--font-color);
 }
 
 .modal-content{
@@ -225,15 +218,50 @@ em {
 .menu-modal{
     display: flex;
     justify-content: center;
-    position: fixed;
+    position: absolute;
     height: 100vh;
     width: 100vw;
     top:0;
     left:0;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .menu-modal-centered{
-    position: fixed;
-    top: calc(20vh - 1rem);
+    position: absolute;
+    top: 5rem;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.preview-header{
+    margin-left: -0.5rem;
+    margin-right: -0.5rem;
+}
+
+.preview-header-title{
+    color: var(--font-color);
+    text-shadow: 0 0 2px black;
+    font-size: 20px;
+    font-family: 'Lor', Tahoma, Geneva, Verdana, sans-serif;
+    border-bottom: 1px solid var(--font-color);
+}
+
+.preview-presentation{
+    min-height: 92px;
+    color: #D7CEC7;
+    font-size: 50px;
+    font-family: 'Lor', Tahoma, Geneva, Verdana, sans-serif;
+    white-space: pre;
+    overflow-inline: auto;
+    overflow: auto;
+}
+
+.preview-presentation-wrapper{
+    background-color: var(--btn-frame);
+    border: 1px solid var(--font-color);
+    border-radius: 4px;
+    background: url(../img/assets/BG_Menu_noborder.png) no-repeat center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: 100% 100%;
 }

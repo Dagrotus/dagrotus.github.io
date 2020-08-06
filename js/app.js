@@ -7,7 +7,7 @@ Vue.component('spritePalette', {
     },
     computed:{
         spriteRows: function(){
-            var rowLength = 7;
+            var rowLength = 6;
             var currentRow = [];
             var rows = [];
             for(var i = 0; i < this.sprites.length; i++){
@@ -110,7 +110,7 @@ var app = new Vue({
             if(short){
                 resultColor = `#${Math.round(color.rgba.r / 17).toString(16)}${Math.round(color.rgba.g / 17).toString(16)}${Math.round(color.rgba.b / 17).toString(16)}`;
                 if(color.a !== 1){
-                    resultColor += Math.round(hexA / 17).toString(16);
+                    resultColor += Math.round('0x' + hexA / 17).toString(16);
                 }
             }
             else{

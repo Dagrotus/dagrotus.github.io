@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-site-verification" content="FYUsHzPtOlUgL5sFcigdZlCBy6ev-CBzCPFvmC0WQ4o" />
-    <title>LoR deck name editor</title>
+    <title>LoR Deck Name Editor</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon"> 
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     
@@ -17,11 +18,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-color/2.7.1/vue-color.min.js"></script>
     <script src="js/data.js"></script>
     <link rel="stylesheet" href="css/site.css">
+    <link rel="stylesheet" href="css/v-color.css">
 </head>
-<body class="container-lg my-3">    
+<body class="container-lg mb-3">    
     <div id="app">
         <div id="header" class="text-center mb-3 d-md-block d-none">
-            <img id="header-logo" src="img/assets/Logo_LOR_Title_crispmip.png" width="300">
+            <img id="header-logo" src="img/assets/Logo_LOR_Title_crispmip.png" width="300" class="mt-3">
             <div id="header-title">DECK NAME EDITOR</div>
         </div>
         <div id="tools" class="mb-3 d-flex flex-wrap justify-content-lg-start justify-content-center">
@@ -103,11 +105,15 @@
         </div>
         <div id="preview" class="my-3">
             <div id="preview-short" class="p-2 preview-presentation-wrapper mb-3">             
-                <div class="preview-header">Preview</div>
+                <div class="preview-header">
+                    <div class="preview-header-title px-2">Preview</div>
+                </div>
                 <div class="mt-2 px-2 d-flex flex-wrap align-items-start preview-presentation" v-html="preview"></div>
             </div>
             <div id="preview-full" class="p-2 preview-presentation-wrapper">                
-                <div class="preview-header">Full preview (ignoring 50 character limit)</div>
+                <div class="preview-header">
+                    <div class="preview-header-title px-2">Full preview (ignoring 50 character limit)</div>
+                </div>
                 <div class="mt-2 px-2 d-flex flex-wrap align-items-start preview-presentation" v-html="previewFull"></div>
             </div>
         </div>
@@ -163,10 +169,10 @@
         <div class="sprite-palette">
             <div class="d-flex sprite-row" v-for="spriteRow in spriteRows">
                 <span v-for="sprite in spriteRow">
-                    <button class="sprite-button p-0"
+                    <button class="sprite-button p-1"
                             @click="clickfn(sprite)"
                             :title="sprite.title">
-                        <img :src="sprite.image" width="45" height="45" >
+                        <img :src="sprite.image" width="40" height="40" >
                     </button>
                 </span>
             </div> 

@@ -1,0 +1,40 @@
+.vc-sketch{
+    border-radius: 0 !important; 
+    width: 305px !important;
+    box-shadow: 0 0 0 0 !important;
+    background-color: #211E1E !important;    
+    border-left: 1px solid var(--font-color);    
+    border-right: 1px solid var(--font-color);    
+    border-top: 1px solid var(--font-color);
+}
+
+.vc-sketch-presets{
+    border-top:0 !important;
+}
+
+.vc-input__input{
+    text-align: center !important;
+    width: 100% !important;
+    padding-right: 10% !important;
+}
+
+.vc-input__label{
+    color: var(--font-color) !important;
+}
+
+.vc-chrome{
+    width: auto !important;
+    background-color: #211E1E !important;
+    border-radius: 0 !important;
+    border-left: 1px solid var(--font-color);    
+    border-right: 1px solid var(--font-color);  
+    border-top: 1px solid var(--font-color); 
+}
+
+.vc-chrome-saturation-wrap{
+    border-radius: 0 !important;
+}
+
+.vc-chrome-body{
+    background-color: #211E1E !important;
+}
