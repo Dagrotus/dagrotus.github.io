@@ -27,6 +27,7 @@
             <img id="header-logo" src="img/assets/Logo_LOR_Title_crispmip.png" width="300" class="mt-3">
             <div id="header-title">DECK NAME EDITOR</div>
         </div>
+
         <div id="tools" class="mb-3 d-flex flex-wrap justify-content-lg-between justify-content-center">
             <div class="d-flex flex-wrap justify-content-lg-start justify-content-center">
                 <div class="typography-button-wrapper typography-button-bold-wrapper">
@@ -103,25 +104,27 @@
             <div class="help-button-wrapper">
                 <button type="button" class="square-button help-button tool-button" title="Help" @click="toggleMenu(menuStates.modalHelp)">?</button>
             </div>
-        </div>     
+        </div>   
+
         <div id="input">
             <textarea id="input-text-area" rows="2" class="form-control" v-model="input" spellcheck="false" placeholder="Type deck name here..."></textarea>
             <div id="input-text-area-counter">
                 {{input.length}}
             </div>
         </div>
+
         <div id="preview" class="my-3">
             <div id="preview-short" class="p-2 preview-presentation-wrapper mb-3">             
                 <div class="preview-header">
                     <div class="preview-header-title px-2">Preview</div>
                 </div>
-                <div class="mt-2 px-2 d-flex flex-wrap align-items-start preview-presentation" v-html="preview"></div>
+                <div class="mt-2 px-2 preview-presentation" v-html="preview"></div>
             </div>
             <div id="preview-full" class="p-2 preview-presentation-wrapper">                
                 <div class="preview-header">
                     <div class="preview-header-title px-2">Full preview (ignoring 50 character limit)</div>
                 </div>
-                <div class="mt-2 px-2 d-flex flex-wrap align-items-start preview-presentation" v-html="previewFull"></div>
+                <div class="mt-2 px-2 preview-presentation" v-html="previewFull"></div>
             </div>
         </div>
     
@@ -196,7 +199,8 @@
                         </ul>
                         <p class="help-paragraph">
                             Tags can be written manually or by using buttons to apply formatting automatically. 
-                            Closing tag (&lt;/&gt;) is not required, but can be used to apply formatting between tags ("&lt;b&gt;Bold text here" is the same as "&lt;b&gt;Bold text here&lt;/b&gt;" but not the same as "&lt;b&gt;Bold text here&lt;/b&gt; not bold text here").
+                            Put opening tag before text, to apply format. 
+                            Closing tag is not required, but can be used to apply formatting between tags for example: "&lt;b&gt;Bold text here" is the same as "&lt;b&gt;Bold text here&lt;/b&gt;" but not the same as "&lt;b&gt;Bold text here&lt;/b&gt; regular text here".
                             Selecting text and pressing format button will apply format to selection. If text is not selected, tag will be inserted at cursor position.
                         </p>                        
                         <p class="help-paragraph">
@@ -204,18 +208,20 @@
                         </p>
                         <p class="help-title">Text coloring</p>
                         <p class="help-paragraph">
-                            Text coloring can be assigned by following tags:                            
+                            Text color is defined by hexadecimal color code or a color name inside the color tag. 
+                            Text coloring can be assigned by following types of tags:                            
                         </p>
                         <ul>
-                            <li>Short hexcode tag (&lt;#0F0&gt; or with opacity &lt;#0F0A&gt;);</li>
-                            <li>Full hexcode tag (&lt;#00FF00&gt; or with opacity &lt;#00FF00AA&gt;);</li>
-                            <li>Color tag with specified hexcode, short or full (&lt;color=#0F0&gt; or &lt;color=#00FF00&gt;);</li>
-                            <li>Color tag with color name (&lt;color=green&gt;), following color names can be used: red, orange, yellow, green, blue, purple, black, white;</li>
+                            <li>Short color code tag (&lt;#0F0&gt; or with opacity &lt;#0F0A&gt;);</li>
+                            <li>Full color code tag (&lt;#00FF00&gt; or with opacity &lt;#00FF00AA&gt;);</li>
+                            <li>Color tag with specified color code, short or full (&lt;color=#0F0&gt; or &lt;color=#00FF00&gt;);</li>
+                            <li>Color tag with color name (&lt;color=green&gt;), following color names can be used: red, orange, yellow, green, blue, purple, black and white;</li>
                         </ul>
                         <p class="help-paragraph">
                             Like text format, tags can be written manually or by using color picker tool to apply color automatically. 
                             Closing tag (&lt;/color&gt;) is not required, but can be used to apply coloring between tags. 
                             In game color will be applied to sprites, but preview here might display it incorrectly in Firefox and some other browsers.
+                            When picking color with color picker tool, you can choose to apply short or full color code.
                         </p>
                         <p class="help-title">Sprites</p>
                         <p class="help-paragraph">
@@ -226,7 +232,7 @@
                             <li>Named sprite tag (&lt;#sprite name=Noxus&gt;);</li>
                         </ul>
                         <p class="help-paragraph">
-                            Sprites can be inserted with sprite palette, it will always choose the shortest sprite tag, if possible.
+                            Sprites can be inserted with sprite palette, it will always choose the shortest available sprite tag.
                         </p>
                     </div>
                 </div>  

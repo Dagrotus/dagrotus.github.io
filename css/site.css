@@ -18,6 +18,7 @@
 
 body{
     background-color: transparent;
+    letter-spacing: .04em;
 }
 
 html{
@@ -63,6 +64,7 @@ html{
     font-family: 'Lor', Tahoma, Geneva, Verdana, sans-serif;  
     background-color: var(--bg-secondary);
     height: 149px;
+    letter-spacing: .04em;
 }
 
 #input {
@@ -353,4 +355,51 @@ em {
     .help-title{
         font-size: 30px;
     }
+}
+
+div.sprite-preview-wrapper{
+    position: relative;
+    height: 50px;
+}
+
+div.sprite-style-strike{
+    position: absolute;
+    width: 100%;
+    top: 0.5em;
+    background-color: #D7CEC7;
+    height: 3px;
+}
+
+div.sprite-style-underlined{
+    position: absolute;
+    width: 100%;
+    top: 0.83em;
+    background-color: #D7CEC7;
+    height: 3px;
+}
+
+.sprite-preview{
+    position: relative;
+    z-index:10;
+}
+
+.sprite-preview-sub{
+    position: relative;
+    scale: 75%;
+    bottom: -0.25em;
+}
+
+.sprite-preview-sup{
+    position: relative;
+    scale: 75%;
+    top: -0.5em;
+}
+
+/* .sprite-preview-sup img, .sprite-preview-sub img{
+    width: 75%;
+    height: 75%;
+} */
+
+.sprite-preview-mark{
+    background-color: #899300;
 }

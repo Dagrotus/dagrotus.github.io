@@ -158,7 +158,7 @@ var app = new Vue({
                     }              
                 }
                 else{
-                    var name = tagStr.slice(nameIndex+5).replace('>', '').replace(/"/g, '');                
+                    var name = tagStr.slice(nameIndex+5).replace('>', '').replace(/"/g, '');
                     sprite = this.sprites.find(s => s.name === name);
                 }
                 if(sprite === undefined){
@@ -203,7 +203,6 @@ var app = new Vue({
             text = text.replace(/&/g, '&amp;')
                        .replace(/</g, '&lt;')
                        .replace(/>/g, '&gt;');
-            text = `<span>${text}</span>`;
             if(styles){
                 var orderedStyles = styles.slice().reverse();
                 for(style of orderedStyles){                    
@@ -215,17 +214,48 @@ var app = new Vue({
                     }
                 }
             }
-            return text; 
+            return `<div>${text}</div>`;
         },
         spriteImageTagTemplate: function(imageRef, styles){
-            var style = ''
+            var colorStyle = '';
+            var textStyle = '';
+            var marked = false;
+
             if(styles){
-                var colorStyle = styles.slice().reverse().find(s => s.type === 'color');
-                if(colorStyle !== undefined){
-                    style = `style="-webkit-filter: opacity(.5) drop-shadow(0 0 0 ${colorStyle.color});filter: opacity(.5) drop-shadow(0 0 0 ${colorStyle.color})"`;
+                var orderedStyles = styles;
+                for (style of orderedStyles){
+                    if(style.type === 'color'){
+                        colorStyle = `-webkit-filter: opacity(.5) drop-shadow(0 0 0 ${style.color});filter: opacity(.5) drop-shadow(0 0 0 ${style.color});`;
+                    }
                 }
+                if(orderedStyles.some(s => s.html === 'u')){
+                    textStyle += `<div class="sprite-style-underlined"></div>`;                    
+                }  
+                if(orderedStyles.some(s => s.html === 's')){
+                    textStyle += `<div class="sprite-style-strike"></div>`;                    
+                }
+                
+                marked = orderedStyles.some(s => s.html === 'mark');                        
             }
-            return `<img src="${imageRef}" ${style} width="50" height="50" class="mx-1">`;
+
+            var scaleStyle = '';
+            //not relevant, images do not scale in sub/sup tags
+            // if(styles){
+            //     var orderedStyles = styles.slice().reverse();
+            //     var scaleString = ''
+            //     for (style of orderedStyles){
+            //         if(style.html === 'sub' || style.html === 'sup'){ 
+            //             scaleString += ' * 0.75'
+            //         }
+            //     }
+            //     if(scaleString !== ''){
+            //         scaleStyle = `height:calc(50px${scaleString});width:calc(50px${scaleString});`
+            //     }
+            // }
+
+            var imgHtml = `<img class="sprite-preview" src="${imageRef}" style="${colorStyle}${scaleStyle}" width="50" height="50">`;
+
+            return `<div class="sprite-preview-wrapper d-flex ${marked ? 'sprite-preview-mark' : ''}" style="${scaleStyle}">${textStyle}${imgHtml}</div>`;
         },     
         parseInput: function(input){
             var resultHtml = '';
@@ -297,7 +327,7 @@ var app = new Vue({
                 resultHtml += this.plainTextTagTemplate(tag, styles);
             }
 
-            return `<span>${resultHtml}</span>`;
+            return `<div class="d-flex align-items-center">${resultHtml}</div>`;
         },
         toggleMenu(menuState){
             this.menuState === menuState ? this.menuState = this.menuStates.none : this.menuState = menuState;
