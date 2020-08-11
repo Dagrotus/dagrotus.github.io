@@ -395,11 +395,14 @@ div.sprite-style-underlined{
     top: -0.5em;
 }
 
-/* .sprite-preview-sup img, .sprite-preview-sub img{
-    width: 75%;
-    height: 75%;
-} */
-
 .sprite-preview-mark{
     background-color: #899300;
+}
+
+.sprite-preview-mark div.sprite-style-strike{
+    background-color: #E9E4A4;
+}
+
+.sprite-preview-mark div.sprite-style-underlined{
+    background-color: #E9E4A4;
 }

@@ -118,13 +118,13 @@
                 <div class="preview-header">
                     <div class="preview-header-title px-2">Preview</div>
                 </div>
-                <div class="mt-2 px-2 preview-presentation" v-html="preview"></div>
+                <div class="mt-2 px-2 d-flex preview-presentation" v-html="preview"></div>
             </div>
             <div id="preview-full" class="p-2 preview-presentation-wrapper">                
                 <div class="preview-header">
                     <div class="preview-header-title px-2">Full preview (ignoring 50 character limit)</div>
                 </div>
-                <div class="mt-2 px-2 preview-presentation" v-html="previewFull"></div>
+                <div class="mt-2 px-2 d-flex preview-presentation" v-html="previewFull"></div>
             </div>
         </div>
     
@@ -229,7 +229,7 @@
                         </p>
                         <ul>
                             <li>Numbered sprite tag (&lt;sprite=1&gt;). Number can be between 1 and 24;</li>
-                            <li>Named sprite tag (&lt;#sprite name=Noxus&gt;);</li>
+                            <li>Named sprite tag (&lt;sprite name=Noxus&gt;);</li>
                         </ul>
                         <p class="help-paragraph">
                             Sprites can be inserted with sprite palette, it will always choose the shortest available sprite tag.
