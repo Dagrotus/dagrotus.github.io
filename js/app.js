@@ -174,10 +174,17 @@ new Vue({
             let inputElement = document.getElementById('input-text-area');
             let selectionStart = inputElement.selectionStart;
             let selectionEnd = inputElement.selectionEnd;
-            let text = this.input.slice(selectionStart, selectionEnd);            
+            let text = this.input.slice(selectionStart, selectionEnd); 
+            let textLength = text.replace(/ /g, '').length;
+            
             if(selectionStart === selectionEnd){
                 text = this.input;
+                selectionStart = 0;
+                selectionEnd = text.length;
             }
+
+            let textToColor = this.removeTags(text);
+            console.log(textToColor);
 
             if(text.length < 2){
                 return;
@@ -201,6 +208,42 @@ new Vue({
 
             this.input = this.input.slice(0, selectionStart) + coloredString + this.input.slice(selectionEnd);
         }, 
+        removeTags: function(text){
+            let isTag = false;
+            let tag = '';
+            let slices = [];
+            let start = 0;
+            let end = 0;
+            let result = '';
+            for(let i = 0; i < text.length; i++){
+                if(text[i] === '<'){
+                    isTag = true;  
+                    tag += text[i];
+                    end = i;               
+                }
+                else if(text[i] === '>' && isTag){
+                    tag += text[i];
+                    isTag = false;
+                    if(this.checkTag(tag).type !== 'plain'){
+                        slices.push([start, end]);
+                        start = i + 1;
+                    }
+                    tag = '';
+                }
+                else{
+                    if(isTag){
+                        tag += text[i];
+                    }
+                }
+            }
+            if(slices.length > 0){
+                slices.push([start, text.length]);
+            }
+            for(slice of slices){
+                result += text.slice(slice[0], slice[1]);
+            }
+            return result;
+        },
         // rgb - array of length 3, representing color in rgb
         //
         // returns short hex color string (#f00)
