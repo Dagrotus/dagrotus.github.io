@@ -182,8 +182,11 @@
                         <div class="help-corner help-corner-top-right"></div>
                         <div class="help-corner help-corner-bottom-left"></div>
                         <div class="help-corner help-corner-bottom-right"></div>
-                        <p class="help-title">Overview</p>
-                        <p class="help-paragraph">Lor Deck Name Editor provides various tools that help customizing deck names in Legends of Runeterra, including: text formatting options, text coloring and sprite insertion.</p>
+                        <p class="help-title">Introduction</p>
+                        <p class="help-paragraph">
+                            Lor Deck Name Editor provides various tools that help customizing deck names in Legends of Runeterra, including: text formatting options, text coloring and sprite insertion.
+                            You can type deck name in text field and use buttons to select and insert format, color or sprites to see how it will look in game. 
+                        </p>
                         <p class="help-title">Text formatting</p>
                         <p class="help-paragraph">
                             Text formatting is assigned using following tags:                            
@@ -200,11 +203,10 @@
                         <p class="help-paragraph">
                             Tags can be written manually or by using buttons to apply formatting automatically. 
                             Put opening tag before text, to apply format. 
-                            Closing tag is not required, but can be used to apply formatting between tags for example: "&lt;b&gt;Bold text here" is the same as "&lt;b&gt;Bold text here&lt;/b&gt;" but not the same as "&lt;b&gt;Bold text here&lt;/b&gt; regular text here".
-                            Selecting text and pressing format button will apply format to selection. If text is not selected, tag will be inserted at cursor position.
-                        </p>                        
-                        <p class="help-paragraph">
-                            Note: in game underline and line-through format will be applied to sprites, but preview here does not display it.
+                            Closing tag is not required, but can be used to apply formatting between tags for example: "&lt;b&gt;Bold text here" is the same as "&lt;b&gt;Bold text here&lt;/b&gt;". 
+                            Text after closing tag will appear regular: "&lt;b&gt;Bold text here&lt;/b&gt; regular text here".
+                            Selecting text inside text field and pressing format button will apply format to selection. 
+                            If text is not selected, only opening tag will be inserted at cursor position.
                         </p>
                         <p class="help-title">Text coloring</p>
                         <p class="help-paragraph">
@@ -219,9 +221,9 @@
                         </ul>
                         <p class="help-paragraph">
                             Like text format, tags can be written manually or by using color picker tool to apply color automatically. 
-                            Closing tag (&lt;/color&gt;) is not required, but can be used to apply coloring between tags. 
-                            In game color will be applied to sprites, but preview here might display it incorrectly in Firefox and some other browsers.
-                            When picking color with color picker tool, you can choose to apply short or full color code.
+                            Closing tag (&lt;/color&gt;) is not required, but can be used to apply coloring to specific parts of text. 
+                            In the game color will be applied to sprites too, but preview here might display it incorrectly in some browsers.
+                            When using color picker tool, you can select short or full color code. 
                         </p>
                         <p class="help-title">Sprites</p>
                         <p class="help-paragraph">
@@ -232,14 +234,36 @@
                             <li>Named sprite tag (&lt;sprite name=Noxus&gt;);</li>
                         </ul>
                         <p class="help-paragraph">
-                            Sprites can be inserted with sprite palette, it will always choose the shortest available sprite tag.
+                            Sprites can be inserted with sprite palette or by typing tags manually, it will always choose the shortest available sprite tag.
+                            Following text formats will be applied to sprites in game and in preview: underline, line through, marking.
                         </p>
+                        <p class="help-title">
+                            Sprite reference
+                        </p>
+                        <p class="help-paragraph help-turn-phone">
+                            If you can see this, your device's screen width is not enough to show sprite reference table. Try turning into lanscape mode.
+                        </p>
+                        <table class="table table-bordered text-center">
+                            <tr>
+                                <th>Image</th>
+                                <th>Title</th>
+                                <th>Number</th>
+                                <th>Name</th>
+                            </tr>
+                            <tr v-for="sprite in spritesOrderByTitle">
+                                <td><img :src="sprite.image" width="30" height="30"></td>
+                                <td>{{sprite.title}}</td>
+                                <td>{{sprite.id !== '' ? sprite.id : '-'}}</td>
+                                <td>{{sprite.name ? sprite.name : '-'}}</td>
+                            </tr>
+                        </table>
                     </div>
                 </div>  
             </div>
         </div>
 
         <div v-if="showModalColors || showModalSprites || showModalHelp" class="menu-modal-dark"></div>
+        <div id="clipboard-text" class="d-none">{{input}}</div>
     </div>
 
     <template id="sprite-palette-template">

@@ -355,6 +355,17 @@ var app = new Vue({
         showModalHelp: function(){
             return this.menuState === this.menuStates.modalHelp;
         },
+        spritesOrderByTitle: function(){
+            return this.sprites.sort((a,b) => {
+                if(a.title > b.title){
+                    return 1;
+                }
+                if(a.title < b.title){
+                    return -1;
+                }
+                return 0;                
+            })
+        }
     },
     watch:{
         input: function(){

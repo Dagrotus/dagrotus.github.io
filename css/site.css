@@ -7,11 +7,6 @@
 }
 
 @font-face {
-    font-family: 'Zurich';
-    src: url('Zurich Extra Condensed BT.ttf');
-}
-
-@font-face {
     font-family: 'Lor';
     src: url('UniversforRiotGames-UltCond.otf');
 }
@@ -333,10 +328,10 @@ em {
 }
 
 .help-paragraph{
-    text-indent: 4rem;
+    text-indent: 2rem;
 }
 .help ul{
-    padding-left: 6rem;
+    padding-left: 3rem;
 }
 
 @media (min-width: 992px){
@@ -354,6 +349,31 @@ em {
 
     .help-title{
         font-size: 30px;
+    }
+
+    .help-paragraph{
+        text-indent: 4rem;
+    }
+    .help ul{
+        padding-left: 6rem;
+    }
+}
+
+.help table {
+    font-family: 'Lor', Tahoma, Geneva, Verdana, sans-serif;
+    color: #D7CEC7; 
+}
+
+.help-turn-phone{
+    display: none;
+}
+
+@media (max-width: 536px) {
+    .help table {
+        display: none;
+    }
+    .help-turn-phone{
+        display: block;
     }
 }
 
