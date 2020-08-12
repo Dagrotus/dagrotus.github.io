@@ -174,36 +174,52 @@ new Vue({
             let inputElement = document.getElementById('input-text-area');
             let selectionStart = inputElement.selectionStart;
             let selectionEnd = inputElement.selectionEnd;
-            let text = this.input.slice(selectionStart, selectionEnd); 
-            let textLength = text.replace(/ /g, '').length;
+            let text = this.input.slice(selectionStart, selectionEnd);
             
             if(selectionStart === selectionEnd){
                 text = this.input;
                 selectionStart = 0;
                 selectionEnd = text.length;
             }
+            let removeTagsResult = this.removeTags(text);
+            let textToColor = removeTagsResult.text.replace(/ /g, '');
 
-            let textToColor = this.removeTags(text);
-            console.log(textToColor);
-
-            if(text.length < 2){
+            if(textToColor.length < 2){
                 return;
             }
             let startColor = [this.gradientStart.rgba.r, this.gradientStart.rgba.g, this.gradientStart.rgba.b];
             let endColor = [this.gradientEnd.rgba.r, this.gradientEnd.rgba.g, this.gradientEnd.rgba.b];
 
-            let coloredString = '';
-            for(let i = 0; i < text.length; i++){
-                if(text[i] === ' '){
-                    coloredString += ' ';
-                    continue;
-                }
+            let colors = [];
+            for(let i = 0; i < textToColor.length; i++){
+                
                 let currColor = [];
                 for(let j = 0; j < 3; j ++){
-                    currColor[j] = Math.round(startColor[j] + (i / (text.length - 1)) * (endColor[j] - startColor[j]));                    
+                    currColor[j] = Math.round(startColor[j] + (i / (textToColor.length - 1)) * (endColor[j] - startColor[j]));                    
                 }
+                colors.push(`<${this.rgbToShortHex(currColor)}>`);
+            }
+            colors = colors.slice().reverse();
 
-                coloredString += `<${this.rgbToShortHex(currColor)}>${text[i]}`;
+            let slices = removeTagsResult.slices;
+            let coloredString = '';
+
+            for(let i = 0; i < text.length; i++){
+                let notColored = true;
+                if(text[i] === ' '){
+                    coloredString += text[i];
+                    continue;
+                }
+                for(let j = 0; j < slices.length; j++){
+                    if(i >= slices[j][0] && i < slices[j][1]){
+                        coloredString += colors.pop() + text[i];
+                        notColored = false;
+                        break;
+                    }
+                }
+                if(notColored){
+                    coloredString += text[i];
+                }
             }
 
             this.input = this.input.slice(0, selectionStart) + coloredString + this.input.slice(selectionEnd);
@@ -236,13 +252,13 @@ new Vue({
                     }
                 }
             }
-            if(slices.length > 0){
-                slices.push([start, text.length]);
-            }
+
+            slices.push([start, text.length]);            
+
             for(slice of slices){
                 result += text.slice(slice[0], slice[1]);
             }
-            return result;
+            return {text: result, slices: slices};
         },
         // rgb - array of length 3, representing color in rgb
         //
