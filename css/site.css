@@ -428,3 +428,30 @@ div.sprite-style-underlined{
 .sprite-preview-mark div.sprite-style-underlined{
     background-color: #E9E4A4;
 }
+
+.copy-button-wrapper{
+    position: relative;
+}
+
+
+#clipboard-confirm{
+    position: fixed;
+    bottom: 4em;
+    background-color: #000000AA;
+    border-radius: 4px;
+    opacity:0;
+    color: var(--font-color);
+    padding: 1em;
+    pointer-events: none;
+    z-index:1;
+    width:150px;
+    text-align:center;
+    transition: opacity 1s ease-in-out;
+    cursor: pointer;
+    border: 1px solid var(--font-color);
+}
+
+#clipboard-confirm.show{
+    opacity: 1;
+    pointer-events: all;
+}

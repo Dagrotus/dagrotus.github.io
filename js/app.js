@@ -53,6 +53,8 @@ var app = new Vue({
             'modalHelp': 5,
         },
         menuState: 0,
+        gradientStart: '#FF0000',
+        gradientEnd: '#0000FF'
     },
     components:{
         'sketch-picker': colorPickerComponent,
@@ -146,7 +148,7 @@ var app = new Vue({
                     inputElement.selectionEnd = selectionEnd + tagText.length;
                 }, 0);
             }
-        },        
+        },
         checkTag: function(tagStr){
             if(/<sprite(=\d+)?( name="?[a-zA-Z]+"?)?>/.test(tagStr)){
                 var nameIndex = tagStr.indexOf('name=');
@@ -342,11 +344,23 @@ var app = new Vue({
             var input = document.getElementById("input-text-area");
             var selStart = input.selectionStart;
             var selEnd = input.selectionEnd;
-            input.select();
-            input.setSelectionRange(0, 99999);
+            if(selStart !== selEnd){
+                input.setSelectionRange(selStart, selEnd);
+            }
+            else{
+                input.setSelectionRange(0, this.input.length);
+            }
+            input.focus();
             document.execCommand("copy");
             input.selectionStart = selStart;
             input.selectionEnd = selEnd;
+            document.getElementById('clipboard-confirm').classList.add('show');
+            setTimeout(function(){
+                document.getElementById('clipboard-confirm').classList.remove('show');
+            }, 2000);
+        },
+        dismissConfirm: function(){
+            document.getElementById('clipboard-confirm').classList.remove('show');
         }
     },
     computed:{

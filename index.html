@@ -101,11 +101,13 @@
                 </div>
             </div>
             
-            <div class="d-flex flex-wrap secondary-button-wrapper">
-                <div><button type="button" 
-                    class="rect-button copy-button tool-button"
-                    @click="copyInput"
-                    title="Copy">Copy</button></div>
+            <div class="d-flex flex-wrap secondary-buttons-wrapper">
+                <div class="copy-button-wrapper">
+                    <button type="button" 
+                        class="rect-button copy-button tool-button"
+                        @click="copyInput"
+                        title="Copy">Copy</button>                      
+                </div>
                 <div>
                     <button type="button" class="square-button help-button tool-button" title="Help" @click="toggleMenu(menuStates.modalHelp)">?</button>
                 </div>
@@ -249,7 +251,7 @@
                         <p class="help-paragraph help-turn-phone">
                             If you see this, your device's screen is not wide enough to show sprite reference table. Try turning into lanscape mode.
                         </p>
-                        <table class="table table-bordered text-center">
+                        <table class="table table-sm table-bordered text-center">
                             <tr>
                                 <th>Image</th>
                                 <th>Title</th>
@@ -257,7 +259,7 @@
                                 <th>Name</th>
                             </tr>
                             <tr v-for="sprite in spritesOrderByTitle">
-                                <td><img :src="sprite.image" width="30" height="30"></td>
+                                <td><img :src="sprite.image" width="40" height="40"></td>
                                 <td>{{sprite.title}}</td>
                                 <td>{{sprite.id !== '' ? sprite.id : '-'}}</td>
                                 <td>{{sprite.name ? sprite.name : '-'}}</td>
@@ -269,7 +271,10 @@
         </div>
 
         <div v-if="showModalColors || showModalSprites || showModalHelp" class="menu-modal-dark"></div>
-        <div id="clipboard-text" class="d-none">{{input}}</div>
+        
+        <div class="d-flex justify-content-center">
+            <div id="clipboard-confirm" class="" @click="dismissConfirm">Text copied</div>
+        </div>  
     </div>
 
     <template id="sprite-palette-template">
