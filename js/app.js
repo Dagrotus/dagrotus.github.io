@@ -1,3 +1,9 @@
+// Sprite palette component
+// props:
+// sprites - array of sprites (in data.js)
+// clickfn - callback function on sprite button click
+// computed:
+// spriteRows - arranges sprites in rows and returns array of rows of sprites, representing rows on palette
 Vue.component('spritePalette', {
     template: '#sprite-palette-template',
     props: ['sprites', 'clickfn'],
@@ -7,10 +13,10 @@ Vue.component('spritePalette', {
     },
     computed:{
         spriteRows: function(){
-            var rowLength = 6;
-            var currentRow = [];
-            var rows = [];
-            for(var i = 0; i < this.sprites.length; i++){
+            let rowLength = 6;
+            let currentRow = [];
+            let rows = [];
+            for(let i = 0; i < this.sprites.length; i++){
                 if(i > 0 && i % rowLength === 0){
                     rows.push(currentRow);
                     currentRow = [];
@@ -25,25 +31,29 @@ Vue.component('spritePalette', {
     }
 });
 
-var colorPickerComponent = VueColor.Sketch;
-colorPickerComponent.props['preserveColor'] = {}; 
-colorPickerComponent.destroyed = function(){ this.preserveColor(); };
+let colorPickerComponent = VueColor.Sketch;
+let chromePickerComponent = VueColor.Chrome;
 
-var chromePickerComponent = VueColor.Chrome;
-chromePickerComponent.props['preserveColor'] = {}; 
-chromePickerComponent.destroyed = function(){ this.preserveColor(); };
-
-
-var app = new Vue({
+new Vue({
     el: '#app',
     data:{
+        // array of sprites (from data.js)
         sprites: sprites,
+        // user input, model of #input-text-area
         input: '',
+        // preview html
         preview: '',
+        // full preview html
         previewFull: '',
-        styleTags: ['b', 'i', 's', 'u', 'sub', 'sup', 'mark'],
-        color: '#FF0000',
+        // default color of single color picker
+        color: {
+            hex: '#FF0000',
+            rgba: { r: 255, g: 0, b: 0, a: 1 },
+            a: 1,
+        },
+        // preset colors for single color picker
         swatches: ['#F00','#F90','#FF0','#0F0','#00F','#800080','#FFF','#000','#9EF','#A20','#FFE','#FBF','#2B9','#FD7','#840'],
+        // menu states
         menuStates: {
             'none': 0, 
             'dropdownSprites': 1, 
@@ -51,20 +61,34 @@ var app = new Vue({
             'dropdownColors': 3, 
             'modalColors': 4,
             'modalHelp': 5,
+            'dropdownGradient': 6,
+            'modalGradient': 7,
         },
+        // represents currently opened menu (dropdown or modal)
         menuState: 0,
-        gradientStart: '#FF0000',
-        gradientEnd: '#0000FF'
+        // default start color of gradient color picker
+        gradientStart: {
+            hex: '#FF0000',
+            rgba: { r: 255, g: 0, b: 0, a: 1 },
+            a: 1,
+        },
+        // default end color of gradient color picker
+        gradientEnd: {
+            hex: '#0000FF',
+            rgba: { r: 0, g: 0, b: 255, a: 1 },
+            a: 1,
+        },
     },
     components:{
         'sketch-picker': colorPickerComponent,
         'chrome-picker': chromePickerComponent,
     },
     methods:{
+        // callback function on sprite button click
         clickSprite: function(sprite){
-            var inputElement = document.getElementById('input-text-area');
-            var caretIndex = inputElement.selectionStart;
-            var spriteText = '';
+            let inputElement = document.getElementById('input-text-area');
+            let caretIndex = inputElement.selectionStart;
+            let spriteText = '';
             if(sprite.id !== ''){
                 spriteText = `<sprite=${sprite.id}>`;
             }
@@ -72,21 +96,20 @@ var app = new Vue({
                 spriteText = `<sprite name=${sprite.name}>`
             }
             this.input = this.input.slice(0, caretIndex) + spriteText + this.input.slice(caretIndex);
-            inputElement.focus();
             setTimeout(function(){
                 inputElement.selectionEnd = caretIndex + spriteText.length;
             }, 0);
         },
+        // callback function on typography format button click
         clickApplyTypographyStyle: function(tag){
-            var inputElement = document.getElementById('input-text-area');
-            var tagText = `<${tag}>`;
+            let inputElement = document.getElementById('input-text-area');
+            let tagText = `<${tag}>`;
 
-            var selectionStart = inputElement.selectionStart;
-            var selectionEnd = inputElement.selectionEnd;
+            let selectionStart = inputElement.selectionStart;
+            let selectionEnd = inputElement.selectionEnd;
 
             if(selectionStart === selectionEnd){
                 this.input = this.input.slice(0, selectionStart) + tagText + this.input.slice(selectionStart);
-                inputElement.focus();
                 setTimeout(function(){
                     inputElement.selectionStart = selectionStart + tagText.length;
                     inputElement.selectionEnd = selectionStart + tagText.length;
@@ -94,22 +117,22 @@ var app = new Vue({
             }
             else{
                 this.input = this.input.slice(0, selectionStart) + tagText + this.input.slice(selectionStart);                
-                var tagTextEnd = `</${tag}>`
+                let tagTextEnd = `</${tag}>`
                 this.input = this.input.slice(0, selectionEnd + tagText.length) + tagTextEnd + this.input.slice(selectionEnd + tagText.length);
-                inputElement.focus();
                 setTimeout(function(){
                     inputElement.selectionStart = selectionStart + tagText.length;
                     inputElement.selectionEnd = selectionEnd + tagText.length;
                 }, 0);
             }
         },
+        // callback function on add single color button click (short or full hex)
         clickAddColor: function(short){
-            var color = this.$refs.colorPicker.val;
-            var hexA = Math.round(255 * color.a).toString(16);
+            let color = this.color;
+            let hexA = Math.round(255 * color.a).toString(16);
             if(hexA.length === 1){
                 hexA = '0' + hexA;
             }
-            var resultColor = '';
+            let resultColor = '';
             if(short){
                 resultColor = `#${Math.round(color.rgba.r / 17).toString(16)}${Math.round(color.rgba.g / 17).toString(16)}${Math.round(color.rgba.b / 17).toString(16)}`;
                 if(color.a !== 1){
@@ -123,16 +146,14 @@ var app = new Vue({
                 }
             }
 
-            this.color = resultColor;
-            var tagText = `<${resultColor}>`;
+            let tagText = `<${resultColor}>`;
 
-            var inputElement = document.getElementById('input-text-area');
-            var selectionStart = inputElement.selectionStart;
-            var selectionEnd = inputElement.selectionEnd;
+            let inputElement = document.getElementById('input-text-area');
+            let selectionStart = inputElement.selectionStart;
+            let selectionEnd = inputElement.selectionEnd;
 
             if(selectionStart === selectionEnd){
                 this.input = this.input.slice(0, selectionStart) + tagText + this.input.slice(selectionStart);
-                inputElement.focus();
                 setTimeout(function(){
                     inputElement.selectionStart = selectionStart + tagText.length;
                     inputElement.selectionEnd = selectionStart + tagText.length;
@@ -140,27 +161,78 @@ var app = new Vue({
             }
             else{
                 this.input = this.input.slice(0, selectionStart) + tagText + this.input.slice(selectionStart);                
-                var tagTextEnd = `</color>`
+                let tagTextEnd = `</color>`
                 this.input = this.input.slice(0, selectionEnd + tagText.length) + tagTextEnd + this.input.slice(selectionEnd + tagText.length);
-                inputElement.focus();
                 setTimeout(function(){
                     inputElement.selectionStart = selectionStart + tagText.length;
                     inputElement.selectionEnd = selectionEnd + tagText.length;
                 }, 0);
             }
+        },  
+        // callback function on apply gradient button click  
+        clickAddGradient: function(){            
+            let inputElement = document.getElementById('input-text-area');
+            let selectionStart = inputElement.selectionStart;
+            let selectionEnd = inputElement.selectionEnd;
+            let text = this.input.slice(selectionStart, selectionEnd);            
+            if(selectionStart === selectionEnd){
+                text = this.input;
+            }
+
+            if(text.length < 2){
+                return;
+            }
+            let startColor = [this.gradientStart.rgba.r, this.gradientStart.rgba.g, this.gradientStart.rgba.b];
+            let endColor = [this.gradientEnd.rgba.r, this.gradientEnd.rgba.g, this.gradientEnd.rgba.b];
+
+            let coloredString = '';
+            for(let i = 0; i < text.length; i++){
+                if(text[i] === ' '){
+                    coloredString += ' ';
+                    continue;
+                }
+                let currColor = [];
+                for(let j = 0; j < 3; j ++){
+                    currColor[j] = Math.round(startColor[j] + (i / (text.length - 1)) * (endColor[j] - startColor[j]));                    
+                }
+
+                coloredString += `<${this.rgbToShortHex(currColor)}>${text[i]}`;
+            }
+
+            this.input = this.input.slice(0, selectionStart) + coloredString + this.input.slice(selectionEnd);
+        }, 
+        // rgb - array of length 3, representing color in rgb
+        //
+        // returns short hex color string (#f00)
+        rgbToShortHex: function (rgb){
+            if(!rgb.push && rgb.length !== 0){
+                return;
+            }        
+            let hex = '#';        
+            for(let i = 0; i < rgb.length; i++){
+                let res = Math.round(Number(rgb[i]) / 17).toString(16);                
+                hex += res; 
+            }        
+            return hex;
         },
+        // tagStr - string representing tag, found in input(<b>)
+        //
+        // returns object {type, html, color?}
+        // type can be: plain, sprite, style, closing
+        // html - html tag name, or tagStr if type is 'plain'
+        // color - (optional) color, found in tag
         checkTag: function(tagStr){
             if(/<sprite(=\d+)?( name="?[a-zA-Z]+"?)?>/.test(tagStr)){
-                var nameIndex = tagStr.indexOf('name=');
-                var sprite;
+                let nameIndex = tagStr.indexOf('name=');
+                let sprite;
                 if(nameIndex === -1){
-                    var id = tagStr.substr(8).replace('>', '');
+                    let id = tagStr.substr(8).replace('>', '');
                     if(id !== ''){
                         sprite = this.sprites.find(s => s.id == id);
                     }              
                 }
                 else{
-                    var name = tagStr.slice(nameIndex+5).replace('>', '').replace(/"/g, '');
+                    let name = tagStr.slice(nameIndex+5).replace('>', '').replace(/"/g, '');
                     sprite = this.sprites.find(s => s.name === name);
                 }
                 if(sprite === undefined){
@@ -178,10 +250,10 @@ var app = new Vue({
             }
             else if(/<#.+>/.test(tagStr) ||
                     /<color="#.+">/.test(tagStr)){
-                var match = tagStr.match(/[\dA-Za-z]+/)[0];
+                let match = tagStr.match(/[\dA-Za-z]+/)[0];
                 if(match.length === 3 || match.length === 4 || match.length === 6 || match.length === 8){
-                    var color = '#';
-                    for(var i = 0; i < match.length; i++){
+                    let color = '#';
+                    for(let i = 0; i < match.length; i++){
                         if(/[^\dA-Fa-f]/.test(match[i])){
                             color += 'F';
                         }
@@ -201,12 +273,16 @@ var app = new Vue({
                 return {type: 'plain', html: tagStr };
             }
         },
+        // text - plaint text to convert to html to preview
+        // styles - array of styles to apply to text
+        //
+        // returns html string of text with styles applied to it
         plainTextTagTemplate: function(text, styles){
             text = text.replace(/&/g, '&amp;')
                        .replace(/</g, '&lt;')
                        .replace(/>/g, '&gt;');
             if(styles){
-                var orderedStyles = styles.slice().reverse();
+                let orderedStyles = styles.slice().reverse();
                 for(style of orderedStyles){                    
                     if(style.type === 'color'){
                         text = `<em style="color: ${style.color}">${text}</em>`;
@@ -218,13 +294,17 @@ var app = new Vue({
             }
             return `<div>${text}</div>`;
         },
+        // imageRef - link to image
+        // styles - array of styles to apply to sprite
+        //
+        // returns html string of sprite with styles applied to it
         spriteImageTagTemplate: function(imageRef, styles){
-            var colorStyle = '';
-            var textStyle = '';
-            var marked = false;
+            let colorStyle = '';
+            let textStyle = '';
+            let marked = false;
 
             if(styles){
-                var orderedStyles = styles;
+                let orderedStyles = styles;
                 for (style of orderedStyles){
                     if(style.type === 'color'){
                         colorStyle = `-webkit-filter: opacity(.5) drop-shadow(0 0 0 ${style.color});filter: opacity(.5) drop-shadow(0 0 0 ${style.color});`;
@@ -240,11 +320,11 @@ var app = new Vue({
                 marked = orderedStyles.some(s => s.html === 'mark');                        
             }
 
-            var scaleStyle = '';
-            //not relevant, images do not scale in sub/sup tags
+            let scaleStyle = '';
+            // not relevant, images do not scale in sub/sup tags
             // if(styles){
-            //     var orderedStyles = styles.slice().reverse();
-            //     var scaleString = ''
+            //     let orderedStyles = styles.slice().reverse();
+            //     let scaleString = ''
             //     for (style of orderedStyles){
             //         if(style.html === 'sub' || style.html === 'sup'){ 
             //             scaleString += ' * 0.75'
@@ -255,18 +335,19 @@ var app = new Vue({
             //     }
             // }
 
-            var imgHtml = `<img class="sprite-preview" src="${imageRef}" style="${colorStyle}${scaleStyle}" width="50" height="50">`;
+            let imgHtml = `<img class="sprite-preview" src="${imageRef}" style="${colorStyle}${scaleStyle}" width="50" height="50">`;
 
             return `<div class="sprite-preview-wrapper d-flex ${marked ? 'sprite-preview-mark' : ''}" style="${scaleStyle}">${textStyle}${imgHtml}</div>`;
-        },     
+        }, 
+        // parse input string, returns html string to preview  
         parseInput: function(input){
-            var resultHtml = '';
-            var isTag = false;
-            var tag = '';
-            var plainText = '';
-            var styles = [];
+            let resultHtml = '';
+            let isTag = false;
+            let tag = '';
+            let plainText = '';
+            let styles = [];
 
-            for(var i = 0; i < input.length; i++){
+            for(let i = 0; i < input.length; i++){
                 if(input[i] === '<'){
                     if(isTag){
                         resultHtml += this.plainTextTagTemplate(tag, styles);
@@ -283,7 +364,7 @@ var app = new Vue({
                 else if(input[i] === '>'){
                     if(isTag){
                         tag += input[i];
-                        var tagObj = this.checkTag(tag);
+                        let tagObj = this.checkTag(tag);
                         if(tagObj.type === 'plain'){
                             resultHtml += this.plainTextTagTemplate(tagObj.html,styles);
                         }
@@ -294,10 +375,10 @@ var app = new Vue({
                             styles.push(tagObj);
                         }
                         else if(tagObj.type === 'closing'){ 
-                            var reverseStyles = styles.slice().reverse();
-                            var index = reverseStyles.findIndex(s => s.html === tagObj.html);
+                            let reverseStyles = styles.slice().reverse();
+                            let index = reverseStyles.findIndex(s => s.html === tagObj.html);
                             if(index !== -1){
-                                var trueIndex = styles.length - 1 - index;
+                                let trueIndex = styles.length - 1 - index;
                                 styles.splice(trueIndex, 1);
                             }
                         }
@@ -331,19 +412,15 @@ var app = new Vue({
 
             return `<div class="d-flex align-items-center">${resultHtml}</div>`;
         },
+        // opens menu
         toggleMenu(menuState){
             this.menuState === menuState ? this.menuState = this.menuStates.none : this.menuState = menuState;
         },
-        preserveColor: function(){         
-            var color = this.$refs.colorPicker;
-            if(color !== undefined){
-                this.color = color.val.hex8;
-            }
-        },
+        // copy input to clipboard
         copyInput: function(){
-            var input = document.getElementById("input-text-area");
-            var selStart = input.selectionStart;
-            var selEnd = input.selectionEnd;
+            let input = document.getElementById("input-text-area");
+            let selStart = input.selectionStart;
+            let selEnd = input.selectionEnd;
             if(selStart !== selEnd){
                 input.setSelectionRange(selStart, selEnd);
             }
@@ -379,6 +456,12 @@ var app = new Vue({
         showModalHelp: function(){
             return this.menuState === this.menuStates.modalHelp;
         },
+        showDropdownGradient: function(){
+            return this.menuState === this.menuStates.dropdownGradient;
+        },
+        showModalGradient: function(){
+            return this.menuState === this.menuStates.modalGradient;
+        },
         spritesOrderByTitle: function(){
             return this.sprites.sort((a,b) => {
                 if(a.title > b.title){
@@ -398,16 +481,14 @@ var app = new Vue({
         }
     },
     mounted: function(){
-        var app = this;
+        let app = this;
         document.onkeyup = function(e){
 
         };
         document.onclick = function(e){
-            if(!e.target.matches('.dropdown-button') && 
-                e.target.closest('.menu-color-picker') === null && 
-                !e.target.matches('.add-color-button-wrapper') &&
-                !e.target.matches('.modal-button') &&
-                !e.target.matches('.help-button')){
+            if(!e.target.matches('.skip-menu-state') && 
+                e.target.closest('.menu-color-picker') === null &&
+                e.target.closest('.gradient-color-pickers') === null){
                 app.menuState = app.menuStates.none;
             }
         }

@@ -148,6 +148,25 @@ em {
     background-size: 59px 44px;
 }
 
+.gradient-rect-button{
+    width: 75px;
+    background-size: 69px 44px;
+}
+
+.gradient-rect-button:hover{
+    background: url(../img/assets/BTN_Tertiary_Face_Highlight.png) no-repeat;
+    background-color: var(--btn-frame);
+    color: var(--bg-secondary);
+    background-size: 69px 44px;
+}
+
+.gradient-rect-button:active{
+    background: url(../img/assets/BTN_Tertiary_Face_Selected.png) no-repeat;
+    background-color: var(--btn-frame);
+    color: var(--btn-active);
+    background-size: 69px 44px;
+}
+
 .dropdown-show-active{
     background: url(../img/assets/BTN_Tertiary_Face_Selected.png) no-repeat;
     background-color: var(--btn-frame);
@@ -446,7 +465,11 @@ div.sprite-style-underlined{
     z-index:1;
     width:150px;
     text-align:center;
-    transition: opacity 1s ease-in-out;
+    -webkit-transition: opacity 1s ease-in-out;
+       -moz-transition: opacity 1s ease-in-out;
+        -ms-transition: opacity 1s ease-in-out;
+         -o-transition: opacity 1s ease-in-out;
+            transition: opacity 1s ease-in-out;
     cursor: pointer;
     border: 1px solid var(--font-color);
 }

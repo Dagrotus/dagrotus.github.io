@@ -20,6 +20,7 @@
     <script src="js/data.js"></script>
     <link rel="stylesheet" href="css/site.css">
     <link rel="stylesheet" href="css/v-color.css">
+    <link rel="stylesheet" href="css/gradient-picker.css">
 </head>
 <body class="container-lg mb-3">    
     <div id="app">
@@ -53,7 +54,7 @@
                 </div>
                 <div class="dropdown-button-wrapper">                
                     <button type="button" 
-                            class="rect-button dropdown-button tool-button d-none d-lg-block"
+                            class="rect-button dropdown-button skip-menu-state tool-button d-none d-lg-block"
                             @click="toggleMenu(menuStates.dropdownSprites)"
                             title="Sprite palette">Sprites</button>
                     <div v-if="showDropdownSprites" id="dropdown-sprites" class="dropdown-content">
@@ -62,7 +63,7 @@
                         </sprite-palette>
                     </div>
                     <button type="button" 
-                            class="rect-button modal-button tool-button d-lg-none" 
+                            class="rect-button modal-button skip-menu-state tool-button d-lg-none" 
                             data-toggle="modal" 
                             @click="toggleMenu(menuStates.modalSprites)">
                         Sprites
@@ -70,18 +71,16 @@
                 </div>
                 <div class="dropdown-button-wrapper">                
                     <button type="button" 
-                            class="rect-button dropdown-button tool-button d-none d-lg-block"
+                            class="rect-button dropdown-button skip-menu-state tool-button d-none d-lg-block"
                             @click="toggleMenu(menuStates.dropdownColors)"
                             title="Color picker">Colors</button>
                     <div v-if="showDropdownColors" id="dropdown-colors" class="dropdown-content">
                         <div class="menu-color-picker">
-                            <sketch-picker :value="color" 
-                                           :preset-colors="swatches" 
-                                           ref="colorPicker"
-                                           :preserve-color="preserveColor">
+                            <sketch-picker v-model="color" 
+                                           :preset-colors="swatches">
                             </sketch-picker>
                         </div>
-                        <div class="d-flex justify-content-center p-1 add-color-button-wrapper">
+                        <div class="d-flex justify-content-center p-1 add-color-button-wrapper skip-menu-state">
                             <button type="button" 
                                     class="large-rect-button add-short-hex-button m-1" 
                                     @click="clickAddColor(true)"
@@ -93,10 +92,45 @@
                         </div>
                     </div>
                     <button type="button" 
-                            class="rect-button modal-button tool-button d-lg-none" 
+                            class="rect-button modal-button skip-menu-state tool-button d-lg-none" 
                             data-toggle="modal" 
                             @click="toggleMenu(menuStates.modalColors)">
                         Colors
+                    </button>
+                </div>
+                <div class="dropdown-button-wrapper">                
+                    <button type="button" 
+                            class="rect-button dropdown-button skip-menu-state tool-button d-none d-lg-block gradient-rect-button"
+                            @click="toggleMenu(menuStates.dropdownGradient)"
+                            title="Gradient">Gradient</button>
+                    <div v-if="showDropdownGradient" id="dropdown-gradient" class="dropdown-content">
+                        <div class="gradient-picker">
+                            <div class="gradient-color-pickers d-flex justify-content-between">
+                                <div class="gradient-start-wrapper mr-2">
+                                    <div class="text-center">First color</div>
+                                    <chrome-picker v-model="gradientStart" 
+                                                   ref="gradientStart"
+                                                   :disable-alpha="true">
+                                    </chrome-picker>
+                                </div>
+                                <div class="gradient-end-wrapper">
+                                    <div class="text-center">Last color</div>
+                                    <chrome-picker v-model="gradientEnd" 
+                                                   ref="gradientEnd"
+                                                   :disable-alpha="true">
+                                    </chrome-picker>
+                                </div>
+                            </div>  
+                            <div class="gradient-picker-button-wrapper skip-menu-state p-1 d-flex justify-content-center">
+                                <button type="button" class="large-rect-button m-1" @click="clickAddGradient">Apply gradient</button>
+                            </div>                          
+                        </div>
+                    </div>
+                    <button type="button" 
+                            class="rect-button modal-button skip-menu-state tool-button d-lg-none gradient-rect-button" 
+                            data-toggle="modal" 
+                            @click="toggleMenu(menuStates.modalGradient)">
+                        Gradient
                     </button>
                 </div>
             </div>
@@ -109,7 +143,7 @@
                         title="Copy">Copy</button>                      
                 </div>
                 <div>
-                    <button type="button" class="square-button help-button tool-button" title="Help" @click="toggleMenu(menuStates.modalHelp)">?</button>
+                    <button type="button" class="square-button help-button skip-menu-state tool-button" title="Help" @click="toggleMenu(menuStates.modalHelp)">?</button>
                 </div>
             </div>
         </div>   
@@ -158,13 +192,11 @@
             <div class="d-flex justify-content-center">
                 <div class="menu-modal-content">
                     <div class="menu-color-picker">
-                        <chrome-picker :value="color" 
-                                    ref="colorPicker"
-                                    :preserve-color="preserveColor"
-                                    :disable-fields="true">
+                        <chrome-picker v-model="color" 
+                                       :disable-fields="true">
                         </chrome-picker>
                     </div>
-                    <div class="d-flex justify-content-center p-1 add-color-button-wrapper">
+                    <div class="d-flex justify-content-center p-1 add-color-button-wrapper skip-menu-state">
                         <button type="button" 
                                 class="large-rect-button add-short-hex-button m-1" 
                                 @click="clickAddColor(true)"
@@ -176,6 +208,38 @@
                     </div> 
                 </div>  
             </div>
+        </div>
+
+        <div v-if="showModalGradient" class="menu-modal" 
+             tabindex="-1" 
+             role="dialog" 
+             aria-labelledby="" 
+             aria-hidden="true">
+            <div class="d-flex justify-content-center">
+                <div class="menu-modal-content">
+                    <div class="gradient-picker">
+                        <div class="gradient-color-pickers d-flex justify-content-between">
+                            <div class="gradient-start-wrapper mr-2">
+                                <div class="text-center">First color</div>
+                                <chrome-picker v-model="gradientStart" 
+                                               ref="gradientStart"
+                                               :disable-alpha="true">
+                                </chrome-picker>
+                            </div>
+                            <div class="gradient-end-wrapper">
+                                <div class="text-center">Last color</div>
+                                <chrome-picker v-model="gradientEnd" 
+                                               ref="gradientEnd"
+                                               :disable-alpha="true">
+                                </chrome-picker>
+                            </div>
+                        </div>  
+                        <div class="gradient-picker-button-wrapper skip-menu-state p-1 d-flex justify-content-center">
+                            <button type="button" class="large-rect-button m-1" @click="clickAddGradient">Apply gradient</button>
+                        </div>                          
+                    </div>
+                </div>
+            </div>    
         </div>
         
         <div v-if="showModalHelp" class="menu-modal" 
@@ -270,7 +334,7 @@
             </div>
         </div>
 
-        <div v-if="showModalColors || showModalSprites || showModalHelp" class="menu-modal-dark"></div>
+        <div v-if="showModalColors || showModalSprites || showModalHelp || showModalGradient" class="menu-modal-dark"></div>
         
         <div class="d-flex justify-content-center">
             <div id="clipboard-confirm" class="" @click="dismissConfirm">Text copied</div>
