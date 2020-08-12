@@ -101,8 +101,14 @@
                 </div>
             </div>
             
-            <div class="help-button-wrapper">
-                <button type="button" class="square-button help-button tool-button" title="Help" @click="toggleMenu(menuStates.modalHelp)">?</button>
+            <div class="d-flex flex-wrap secondary-button-wrapper">
+                <div><button type="button" 
+                    class="rect-button copy-button tool-button"
+                    @click="copyInput"
+                    title="Copy">Copy</button></div>
+                <div>
+                    <button type="button" class="square-button help-button tool-button" title="Help" @click="toggleMenu(menuStates.modalHelp)">?</button>
+                </div>
             </div>
         </div>   
 
@@ -241,7 +247,7 @@
                             Sprite reference
                         </p>
                         <p class="help-paragraph help-turn-phone">
-                            If you can see this, your device's screen width is not enough to show sprite reference table. Try turning into lanscape mode.
+                            If you see this, your device's screen is not wide enough to show sprite reference table. Try turning into lanscape mode.
                         </p>
                         <table class="table table-bordered text-center">
                             <tr>

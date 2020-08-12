@@ -337,6 +337,16 @@ var app = new Vue({
             if(color !== undefined){
                 this.color = color.val.hex8;
             }
+        },
+        copyInput: function(){
+            var input = document.getElementById("input-text-area");
+            var selStart = input.selectionStart;
+            var selEnd = input.selectionEnd;
+            input.select();
+            input.setSelectionRange(0, 99999);
+            document.execCommand("copy");
+            input.selectionStart = selStart;
+            input.selectionEnd = selEnd;
         }
     },
     computed:{

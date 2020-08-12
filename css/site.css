@@ -330,6 +330,7 @@ em {
 .help-paragraph{
     text-indent: 2rem;
 }
+
 .help ul{
     padding-left: 3rem;
 }
@@ -354,6 +355,7 @@ em {
     .help-paragraph{
         text-indent: 4rem;
     }
+
     .help ul{
         padding-left: 6rem;
     }
