@@ -52,7 +52,7 @@ new Vue({
             a: 1,
         },
         // preset colors for single color picker
-        swatches: ['#F00','#F90','#FF0','#0F0','#00F','#800080','#FFF','#000','#9EF','#A20','#FFE','#FBF','#2B9','#FD7','#840'],
+        swatches: ['#F00','#F90','#FF0','#0F0','#00F','#800080','#FFF','#000','#9EF','#A20','#FFE','#FBF','#2B9','#FD7','#840', '#76D'],
         // menu states
         menuStates: {
             'none': 0, 
@@ -224,6 +224,11 @@ new Vue({
 
             this.input = this.input.slice(0, selectionStart) + coloredString + this.input.slice(selectionEnd);
         }, 
+        // removes valid tags (using 'checkTag' function) from text
+        //
+        // returns object {text, slices}
+        // text - new string with all valid tags removes
+        // slices - array of pairs of indexes, that indicate starts and ends of non tag text in original string 
         removeTags: function(text){
             let isTag = false;
             let tag = '';
@@ -366,14 +371,17 @@ new Vue({
                 let orderedStyles = styles;
                 for (style of orderedStyles){
                     if(style.type === 'color'){
-                        colorStyle = `-webkit-filter: opacity(.5) drop-shadow(0 0 0 ${style.color});filter: opacity(.5) drop-shadow(0 0 0 ${style.color});`;
+                        colorStyle = `-webkit-filter: opacity(.5) drop-shadow(0 0 0 ${style.color});
+                                      filter: opacity(.5) drop-shadow(0 0 0 ${style.color});`;
                     }
                 }
+
                 if(orderedStyles.some(s => s.html === 'u')){
-                    textStyle += `<div class="sprite-style-underlined"></div>`;                    
+                    textStyle += `<div class="sprite-style-underlined">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>`;                    
                 }  
+                
                 if(orderedStyles.some(s => s.html === 's')){
-                    textStyle += `<div class="sprite-style-strike"></div>`;                    
+                    textStyle += `<div class="sprite-style-strike">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>`;                    
                 }
                 
                 marked = orderedStyles.some(s => s.html === 'mark');                        

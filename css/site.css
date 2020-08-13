@@ -406,17 +406,17 @@ div.sprite-preview-wrapper{
 div.sprite-style-strike{
     position: absolute;
     width: 100%;
-    top: 0.5em;
-    background-color: #D7CEC7;
-    height: 3px;
+    text-decoration: line-through;
+    line-height: 1;
+
 }
 
 div.sprite-style-underlined{
     position: absolute;
     width: 100%;
-    top: 0.83em;
-    background-color: #D7CEC7;
-    height: 3px;
+    text-decoration: underline;
+    line-height: 1;
+
 }
 
 .sprite-preview{
@@ -441,11 +441,11 @@ div.sprite-style-underlined{
 }
 
 .sprite-preview-mark div.sprite-style-strike{
-    background-color: #E9E4A4;
+    color: #E9E4A4;
 }
 
 .sprite-preview-mark div.sprite-style-underlined{
-    background-color: #E9E4A4;
+    color: #E9E4A4;
 }
 
 .copy-button-wrapper{

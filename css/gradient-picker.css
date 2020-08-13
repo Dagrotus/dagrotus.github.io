@@ -24,9 +24,13 @@
 }
 
 .gradient-color-pickers {
-    padding:0.5rem;
+    padding: 0.5rem;
 }
 
 .gradient-picker .vc-chrome{
     width: 162px !important;
+}
+
+.gradient-picker .vc-chrome-toggle-icon-highlight{
+    top: 15px !important;
 }
