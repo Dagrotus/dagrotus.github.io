@@ -530,7 +530,7 @@ new Vue({
             return this.menuState === this.menuStates.modalGradient;
         },
         spritesOrderByTitle: function(){
-            return this.sprites.sort((a,b) => {
+            return this.sprites.slice().sort((a,b) => {
                 if(a.title > b.title){
                     return 1;
                 }
