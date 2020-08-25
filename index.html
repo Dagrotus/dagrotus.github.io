@@ -317,24 +317,14 @@
                         </p>
                         <p class="help-title">
                             Sprite reference
-                        </p>
-                        <p class="help-paragraph help-turn-phone">
-                            If you see this, your device's screen is not wide enough to show sprite reference table. Try turning into lanscape mode.
-                        </p>
-                        <table class="table table-sm table-bordered text-center">
-                            <tr>
-                                <th>Image</th>
-                                <th>Title</th>
-                                <th>Number</th>
-                                <th>Name</th>
-                            </tr>
-                            <tr v-for="sprite in spritesOrderByTitle">
-                                <td><img :src="sprite.image" width="40" height="40"></td>
-                                <td>{{sprite.title}}</td>
-                                <td>{{sprite.id !== '' ? sprite.id : '-'}}</td>
-                                <td>{{sprite.name ? sprite.name : '-'}}</td>
-                            </tr>
-                        </table>
+                        </p>                        
+                        <div class="row">
+                            <div v-for="sprite in sprites" class="col-md-2 col-sm-3 col-6 text-center mb-2">
+                                <div class="mb-2"><img :src="sprite.image" width="60" height="60"></div>
+                                <div>{{sprite.id ? sprite.id : '-'}}</div>
+                                <div>{{sprite.name ? sprite.name : '-'}}</div>
+                            </div>
+                        </div>
                     </div>
                 </div>  
             </div>

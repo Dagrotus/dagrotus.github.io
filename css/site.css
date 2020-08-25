@@ -354,7 +354,7 @@ em {
     padding-left: 3rem;
 }
 
-@media (min-width: 992px){
+@media (min-width: 1200px){
     .help{
         width: 70vw;
         font-size: 28px;
@@ -377,24 +377,6 @@ em {
 
     .help ul{
         padding-left: 6rem;
-    }
-}
-
-.help table {
-    font-family: 'Lor', Tahoma, Geneva, Verdana, sans-serif;
-    color: #D7CEC7; 
-}
-
-.help-turn-phone{
-    display: none;
-}
-
-@media (max-width: 536px) {
-    .help table {
-        display: none;
-    }
-    .help-turn-phone{
-        display: block;
     }
 }
 
