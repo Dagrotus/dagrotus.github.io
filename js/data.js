@@ -60,6 +60,7 @@ var sprites = [
     new Sprite('Spell Shield', '', 'SpellShield', 'img/sprites/SpellShield.png', 'Keyword'),
     new Sprite('Stunned', '', 'Stunned', 'img/sprites/Stunned.png', 'Keyword'),
     new Sprite('Tough', '', 'Tough', 'img/sprites/Tough.png', 'Keyword'),
+    new Sprite('Vulnerable', '', 'Vulnerable', 'img/sprites/Vulnerable.png', 'Keyword'),
     new Sprite('Attack skill mark', '', 'AttackSkillMark', 'img/sprites/AttackSkillMark.png', 'Card Effect'),
     new Sprite('Generic trigger', '', 'GenericTrigger', 'img/sprites/GenericTrigger.png', 'Card Effect'),
     new Sprite('Imbue', '', 'Imbue', 'img/sprites/Imbue.png', 'Card Effect'),
