@@ -371,8 +371,8 @@ new Vue({
                 let orderedStyles = styles;
                 for (style of orderedStyles){
                     if(style.type === 'color'){
-                        colorStyle = `-webkit-filter: opacity(.5) drop-shadow(0 0 0 ${style.color});
-                                      filter: opacity(.5) drop-shadow(0 0 0 ${style.color});`;
+                        // colorStyle = `-webkit-filter: opacity(.5) drop-shadow(0 0 0 ${style.color});
+                        //               filter: opacity(.5) drop-shadow(0 0 0 ${style.color});`;
                     }
                 }
 
