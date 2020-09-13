@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="An online tool for creating and formatting deck names for Legends of Runeterra, including text coloring and sprite images.">
+    <meta name="google-site-verification" content="FYUsHzPtOlUgL5sFcigdZlCBy6ev-CBzCPFvmC0WQ4o" />
+    <title>LoR Deck Name Editor</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon"> 
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="js/data.js"></script>
+    <link rel="stylesheet" href="css/site.css">
+</head>
+<body class="mb-3">
+    <div id="app">
+        <div class="help m-3" style="width: calc(1810px + 4rem)">
+            <div class="help-corner help-corner-top-left"></div>
+            <div class="help-corner help-corner-top-right"></div>
+            <div class="help-corner help-corner-bottom-left"></div>
+            <div class="help-corner help-corner-bottom-right"></div>
+            <div class="d-flex flex-wrap">
+                <div v-for="sprite in sprites" class="text-center mb-2" style="width:200px">
+                    <div class="mb-2"><img :src="sprite.image" width="60" height="60"></div>
+                    <div>{{sprite.id !== '' ? sprite.id : '-'}}</div>
+                    <div>{{sprite.name ? sprite.name : '-'}}</div>
+                </div>
+            </div>         
+        </div>
+    </div>
+    <script>
+        new Vue({
+            el: '#app',
+            data:{
+                sprites: sprites,
+            }
+        });
+    </script>
+</body>
+</html>
