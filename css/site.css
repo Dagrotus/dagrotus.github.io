@@ -460,3 +460,8 @@ div.sprite-style-underlined{
     opacity: 1;
     pointer-events: all;
 }
+
+.sprites-link{
+    color: white;
+    text-decoration: underline;
+}
