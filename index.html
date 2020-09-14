@@ -108,17 +108,35 @@
                             <div class="gradient-color-pickers d-flex justify-content-between">
                                 <div class="gradient-start-wrapper mr-2">
                                     <div class="text-center">First color</div>
-                                    <chrome-picker v-model="gradientStart" 
-                                                   ref="gradientStart"
-                                                   :disable-alpha="true">
-                                    </chrome-picker>
+                                    <div class="gradient-border-wrapper">
+                                        <chrome-picker v-model="gradientStart" 
+                                                    ref="gradientStart"
+                                                    :disable-alpha="true">
+                                        </chrome-picker>
+                                        <div class="gradient-swatches">
+                                            <div v-for="regionSwatch in regionSwatches"
+                                                class="gradient-swatches-color"
+                                                :style="{'background-color': regionSwatch.hex}"
+                                                @click="clickSetSwatch(true, regionSwatch)">                                        
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="gradient-end-wrapper">
                                     <div class="text-center">Last color</div>
-                                    <chrome-picker v-model="gradientEnd" 
-                                                   ref="gradientEnd"
-                                                   :disable-alpha="true">
-                                    </chrome-picker>
+                                    <div class="gradient-border-wrapper">
+                                        <chrome-picker v-model="gradientEnd" 
+                                                    ref="gradientEnd"
+                                                    :disable-alpha="true">
+                                        </chrome-picker>
+                                        <div class="gradient-swatches">
+                                            <div v-for="regionSwatch in regionSwatches"
+                                                class="gradient-swatches-color"
+                                                :style="{'background-color': regionSwatch.hex}"
+                                                @click="clickSetSwatch(false, regionSwatch)">                                        
+                                            </div>
+                                        </div>
+                                    </div>                                    
                                 </div>
                             </div>  
                             <div class="gradient-picker-button-wrapper skip-menu-state p-1 d-flex justify-content-center">
@@ -169,8 +187,7 @@
                 <div class="mt-2 px-2 d-flex preview-presentation" v-html="previewFull"></div>
             </div>
         </div>
-        <a href="sprites.zip" target="_blank" class="sprites-link">Download sprite images</a>
-    
+
         <div v-if="showModalSprites" class="menu-modal" 
              tabindex="-1" 
              role="dialog" 
@@ -222,17 +239,35 @@
                         <div class="gradient-color-pickers d-flex justify-content-between">
                             <div class="gradient-start-wrapper mr-2">
                                 <div class="text-center">First color</div>
-                                <chrome-picker v-model="gradientStart" 
-                                               ref="gradientStart"
-                                               :disable-alpha="true">
-                                </chrome-picker>
+                                <div class="gradient-border-wrapper">
+                                    <chrome-picker v-model="gradientStart" 
+                                                ref="gradientStart"
+                                                :disable-alpha="true">
+                                    </chrome-picker>
+                                    <div class="gradient-swatches">
+                                        <div v-for="regionSwatch in regionSwatches"
+                                            class="gradient-swatches-color"
+                                            :style="{'background-color': regionSwatch.hex}"
+                                            @click="clickSetSwatch(true, regionSwatch)">                                        
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="gradient-end-wrapper">
                                 <div class="text-center">Last color</div>
-                                <chrome-picker v-model="gradientEnd" 
-                                               ref="gradientEnd"
-                                               :disable-alpha="true">
-                                </chrome-picker>
+                                <div class="gradient-border-wrapper">
+                                    <chrome-picker v-model="gradientEnd" 
+                                                ref="gradientEnd"
+                                                :disable-alpha="true">
+                                    </chrome-picker>
+                                    <div class="gradient-swatches">
+                                        <div v-for="regionSwatch in regionSwatches"
+                                            class="gradient-swatches-color"
+                                            :style="{'background-color': regionSwatch.hex}"
+                                            @click="clickSetSwatch(false, regionSwatch)">                                        
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>  
                         <div class="gradient-picker-button-wrapper skip-menu-state p-1 d-flex justify-content-center">
@@ -339,6 +374,12 @@
             <div id="clipboard-confirm" class="" @click="dismissConfirm">Text copied</div>
         </div>
     </div>
+        
+    <footer>
+        <div class="footer-content">
+            <a href="sprites.zip" target="_blank" class="sprites-link">Download sprite images</a>
+        </div>
+    </footer>
 
     <template id="sprite-palette-template">
         <div class="sprite-palette">

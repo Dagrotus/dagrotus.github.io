@@ -1,5 +1,4 @@
 .gradient-picker{
-    /* width: 350px; */
     border: 1px solid var(--font-color);
     background: url(../img/assets/BG_Menu_noborder.png) no-repeat center center;
     -webkit-background-size: cover;
@@ -12,6 +11,10 @@
     font-size: 20px;
 }
 
+.gradient-picker .vc-chrome{
+    border: none;
+}
+
 .gradient-start-color, .gradient-end-color{
     width: 60px;
     height: 60px;
@@ -19,9 +22,9 @@
     cursor: pointer;
 }
 
-.gradient-picker .vc-chrome{    
+/* .gradient-picker .vc-chrome{    
     border-bottom: 1px solid var(--font-color); 
-}
+} */
 
 .gradient-color-pickers {
     padding: 0.5rem;
@@ -33,4 +36,24 @@
 
 .gradient-picker .vc-chrome-toggle-icon-highlight{
     top: 15px !important;
+}
+
+.gradient-swatches{
+    display: flex;
+    flex-wrap: wrap;
+    width:164px;
+    padding: 3px;
+}
+
+.gradient-swatches-color{
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    border-radius: 2px;
+    margin: 3px;
+}
+
+.gradient-border-wrapper{
+    width: 164px;
+    border: 1px solid var(--font-color);
 }

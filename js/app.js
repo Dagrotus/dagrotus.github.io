@@ -52,7 +52,41 @@ new Vue({
             a: 1,
         },
         // preset colors for single color picker
-        swatches: ['#F00','#F90','#FF0','#0F0','#00F','#800080','#FFF','#000','#9EF','#A20','#FFE','#FBF','#2B9','#FD7','#840', '#76D'],
+        swatches: ['#F00','#F90','#FF0','#0F0','#00F','#800080','#FFF','#000','#9EF','#A20','#FFE','#FBF','#2B9','#FD7','#832', '#76D'],
+        regionSwatches: [{
+                hex: '#99EEFF',
+                rgba: { r: 153, g: 238, b: 255, a: 1 },
+                a: 1,
+            },{
+                hex: '#AA2200',
+                rgba: { r: 170, g: 34, b: 0, a: 1 },
+                a: 1,
+            },{
+                hex: '#FFFFEE',
+                rgba: { r: 255, g: 255, b: 238, a: 1 },
+                a: 1,
+            },{
+                hex: '#FFBBFF',
+                rgba: { r: 255, g: 187, b: 255, a: 1 },
+                a: 1,
+            },{
+                hex: '#22BB99',
+                rgba: { r: 34, g: 187, b: 153, a: 1 },
+                a: 1,
+            },{
+                hex: '#FFDD77',
+                rgba: { r: 255, g: 221, b: 119, a: 1 },
+                a: 1,
+            },{
+                hex: '#883322',
+                rgba: { r: 136, g: 51, b: 34, a: 1 },
+                a: 1,
+            },{
+                hex: '#7766DD',
+                rgba: { r: 119, g: 102, b: 221, a: 1 },
+                a: 1,
+            }
+        ],
         // menu states
         menuStates: {
             'none': 0, 
@@ -84,6 +118,14 @@ new Vue({
         'chrome-picker': chromePickerComponent,
     },
     methods:{
+        clickSetSwatch: function(isStart, swatch){
+            if(isStart){
+                this.gradientStart = swatch;
+            }
+            else{
+                this.gradientEnd = swatch;
+            }
+        },
         // callback function on sprite button click
         clickSprite: function(sprite){
             let inputElement = document.getElementById('input-text-area');

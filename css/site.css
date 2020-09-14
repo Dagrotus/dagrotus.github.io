@@ -465,3 +465,13 @@ div.sprite-style-underlined{
     color: white;
     text-decoration: underline;
 }
+
+footer{
+    height: 200px;
+    position: relative;
+}
+
+.footer-content{
+    position: absolute;
+    bottom: 0;
+}
