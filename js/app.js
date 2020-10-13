@@ -138,6 +138,7 @@ new Vue({
                 spriteText = `<sprite name=${sprite.name}>`
             }
             this.input = this.input.slice(0, caretIndex) + spriteText + this.input.slice(caretIndex);
+            inputElement.focus();
             setTimeout(function(){
                 inputElement.selectionEnd = caretIndex + spriteText.length;
             }, 0);
@@ -152,6 +153,7 @@ new Vue({
 
             if(selectionStart === selectionEnd){
                 this.input = this.input.slice(0, selectionStart) + tagText + this.input.slice(selectionStart);
+                inputElement.focus();
                 setTimeout(function(){
                     inputElement.selectionStart = selectionStart + tagText.length;
                     inputElement.selectionEnd = selectionStart + tagText.length;
@@ -161,6 +163,7 @@ new Vue({
                 this.input = this.input.slice(0, selectionStart) + tagText + this.input.slice(selectionStart);                
                 let tagTextEnd = `</${tag}>`
                 this.input = this.input.slice(0, selectionEnd + tagText.length) + tagTextEnd + this.input.slice(selectionEnd + tagText.length);
+                inputElement.focus();
                 setTimeout(function(){
                     inputElement.selectionStart = selectionStart + tagText.length;
                     inputElement.selectionEnd = selectionEnd + tagText.length;
@@ -196,6 +199,7 @@ new Vue({
 
             if(selectionStart === selectionEnd){
                 this.input = this.input.slice(0, selectionStart) + tagText + this.input.slice(selectionStart);
+                inputElement.focus();
                 setTimeout(function(){
                     inputElement.selectionStart = selectionStart + tagText.length;
                     inputElement.selectionEnd = selectionStart + tagText.length;
@@ -205,6 +209,7 @@ new Vue({
                 this.input = this.input.slice(0, selectionStart) + tagText + this.input.slice(selectionStart);                
                 let tagTextEnd = `</color>`
                 this.input = this.input.slice(0, selectionEnd + tagText.length) + tagTextEnd + this.input.slice(selectionEnd + tagText.length);
+                inputElement.focus();
                 setTimeout(function(){
                     inputElement.selectionStart = selectionStart + tagText.length;
                     inputElement.selectionEnd = selectionEnd + tagText.length;
@@ -265,6 +270,7 @@ new Vue({
             }
 
             this.input = this.input.slice(0, selectionStart) + coloredString + this.input.slice(selectionEnd);
+            inputElement.focus();
         }, 
         // removes valid tags (using 'checkTag' function) from text
         //
