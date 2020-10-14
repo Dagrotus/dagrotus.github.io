@@ -66,4 +66,5 @@ var sprites = [
     new Sprite('Imbue', '', 'Imbue', 'img/sprites/Imbue.png', 'Card Effect'),
     new Sprite('Play skill mark', '', 'PlaySkillMark', 'img/sprites/PlaySkillMark.png', 'Card Effect'),
     //new Sprite('Augment', '', 'Augment', 'img/sprites/Augment.png', 'Unknown'),
+    new Sprite('Landmark', '', 'LandmarkVisualOnly', 'img/sprites/LandmarkVisualOnly.png', 'Keyword')
 ];
