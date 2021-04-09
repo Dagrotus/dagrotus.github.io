@@ -206,9 +206,7 @@ new Vue({
                 }, 0);
             }
             else{
-                this.input = this.input.slice(0, selectionStart) + tagText + this.input.slice(selectionStart);                
-                let tagTextEnd = `</color>`
-                this.input = this.input.slice(0, selectionEnd + tagText.length) + tagTextEnd + this.input.slice(selectionEnd + tagText.length);
+                this.input = this.input.slice(0, selectionStart) + tagText + this.input.slice(selectionStart);
                 inputElement.focus();
                 setTimeout(function(){
                     inputElement.selectionStart = selectionStart + tagText.length;
@@ -308,7 +306,7 @@ new Vue({
 
             slices.push([start, text.length]);            
 
-            for(slice of slices){
+            for(let slice of slices){
                 result += text.slice(slice[0], slice[1]);
             }
             return {text: result, slices: slices};
@@ -395,7 +393,7 @@ new Vue({
                        .replace(/>/g, '&gt;');
             if(styles){
                 let orderedStyles = styles.slice().reverse();
-                for(style of orderedStyles){                    
+                for(let style of orderedStyles){                    
                     if(style.type === 'color'){
                         text = `<em style="color: ${style.color}">${text}</em>`;
                     }
@@ -417,7 +415,7 @@ new Vue({
 
             if(styles){
                 let orderedStyles = styles;
-                for (style of orderedStyles){
+                for (let style of orderedStyles){
                     if(style.type === 'color'){
                         // colorStyle = `-webkit-filter: opacity(.5) drop-shadow(0 0 0 ${style.color});
                         //               filter: opacity(.5) drop-shadow(0 0 0 ${style.color});`;
